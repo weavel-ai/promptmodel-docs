@@ -13,11 +13,11 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN yarn install
+RUN pnpm install
 
 COPY . .
 
-RUN yarn build
+RUN pnpm build
 
 # ---
 
