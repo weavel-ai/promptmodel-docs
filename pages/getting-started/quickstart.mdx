@@ -21,7 +21,7 @@ pip install promptmodel
 ### CLI Login
 
 ```bash copy
-pmc login
+prompt login
 ```
 
 You will be redirected to the PromptModel website for CLI login. After logging in, you can close the browser window and return to your IDE.
@@ -29,21 +29,25 @@ You will be redirected to the PromptModel website for CLI login. After logging i
 ### Initialization
 
 ```bash copy
-pmc init
+prompt init
 ```
 
 This will generate the following file in the current directory. This file will be used as an entry point for the prompt engineering dashboard.
 
 ```python filename="promptmodel_dev.py" copy
+"""This single file is needed to build the Client development dashboard."""
+
 from promptmodel import Client
-# Import files where promptmodel is used here for the dashboard to detect them. Example:
-# import my_module
+
+# Example imports
+# from <dirname> import < objectname>
 
 app = Client()
 
-app.add_sample("sample_name", {
-    "paragraph": "Example paragraph"
-})
+# Example usage
+# This is needed to integrate your codebase with the prompt engineering dashboard
+# app.include(< objectname>)
+
 ```
 
 ## Code Integration
@@ -55,21 +59,26 @@ Now you can use PromptModel in your project.
 ```python copy
 from promptmodel import Client, PromptModel
 
-app = Client()
+client = Client()
 
-@app.register
-async def generate_summary(content: str):
-    return await PromptModel("generate_summary").agenerate_and_parse(output_keys=["summary", "keywords"])
+# You can simply fetch prompts
+extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
+
+# Or run PromptModel directly
+@client.register
+def test():
+    response = PromptModel("choose_service").run_and_parse({})
+    print(response)
 ```
 
 ## Prompt Engineering
 
-To start engineering your prompts, you can use the **PromptModel CLI (pmc)**.
+To start engineering your prompts, you can use the **PromptModel CLI (prompt)**.
 
 ### Opening the development dashboard
 
 ```bash copy
-pmc dev
+prompt dev
 ```
 
 This will open the prompt engineering dashboard in your browser. LLM modules will be automatically detected from your code, and displayed in the dashboard. You can now start engineering your prompts.
