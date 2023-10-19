@@ -1,0 +1,12 @@
+{
+  "intro": {
+    "title": "Introduction",
+    "theme": { "breadcrumb": false }
+  },
+  "getting-started": "Getting Started",
+  "migration": {
+    "title": "Migrating Prompts",
+    "theme": { "breadcrumb": false }
+  },
+  "prompt-engineering": "Prompt Engineering"
+}

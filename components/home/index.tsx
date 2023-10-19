@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -8,6 +10,7 @@ import { motion } from "framer-motion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Link from "next/link";
+import { useTheme } from "nextra-theme-docs";
 
 const SUMMARIZATION_PROMPT = `
 SUMMARIZATION_PROMPT = """
@@ -42,7 +45,7 @@ export function Home() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const params = useSearchParams();
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const { theme } = useTheme();
   // Amplitude logging
   // useEffect(() => {
   //   logEvent("page_view:home", {
@@ -56,7 +59,8 @@ export function Home() {
 
   return (
     <main
-      className="h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center"
+      data-theme={theme}
+      className="bg-base-100 h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center"
       ref={containerRef}
     >
       <div
@@ -308,7 +312,7 @@ export function Home() {
               transition={{ duration: 0.7 }}
             >
               <Image
-                src="/fastmodel-versions.png"
+                src="/promptmodel-versions.png"
                 draggable={false}
                 alt="experiments"
                 width={700}
