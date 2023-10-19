@@ -1,12 +1,14 @@
 {
   "index": {
-    "title": "Introduction",
-    "theme": { "breadcrumb": false }
+    "type": "page",
+    "title": "Promptmodel",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
   },
-  "getting-started": "Getting Started",
-  "migration": {
-    "title": "Migrating Prompts",
-    "theme": { "breadcrumb": false }
-  },
-  "prompt-engineering": "Prompt Engineering"
+  "docs": {
+    "type": "page",
+    "title": "Docs"
+  }
 }
