@@ -13,6 +13,7 @@ import { useTheme } from "nextra-theme-docs";
 import Spline from "@splinetool/react-spline";
 import { RequestAccessButton } from "./RequestAccessButton";
 import { CheckFat } from "@phosphor-icons/react";
+import { logEvent } from "../../services/amplitude";
 
 const SUMMARIZATION_PROMPT = `
 SUMMARIZATION_PROMPT = """
@@ -50,15 +51,15 @@ export function Home() {
   const { theme } = useTheme();
 
   // Amplitude logging
-  // useEffect(() => {
-  //   logEvent("page_view:home", {
-  //     utm_source: params.get("utm_source"),
-  //     utm_medium: params.get("utm_medium"),
-  //     utm_campaign: params.get("utm_campaign"),
-  //     utm_content: params.get("utm_content"),
-  //     utm_term: params.get("utm_term"),
-  //   });
-  // }, []);
+  useEffect(() => {
+    logEvent("page_view:home", {
+      utm_source: params.get("utm_source"),
+      utm_medium: params.get("utm_medium"),
+      utm_campaign: params.get("utm_campaign"),
+      utm_content: params.get("utm_content"),
+      utm_term: params.get("utm_term"),
+    });
+  }, []);
 
   const [colorScheme, setColorScheme] = useState(null);
 
