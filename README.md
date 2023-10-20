@@ -1,23 +1,25 @@
-# Nextra Docs Template 
+<div align="center">
+    <a href="https://www.promptmodel.run">
+        <img src="https://i.imgur.com/f3MHyH3.png" title="Logo" style="width: 160px; margin-bottom: 16px;" />
+    </a>
+    <h1>Promptmodel Docs</h1>
+    <p>
+        <h3>Prompt & model versioning on the cloud, built for developers.</h3>
+        <p>
+            We are currently on <strong>closed alpha</strong>.
+            <a href="https://formless.ai/c/RtUfMCsh9YSs">Request access 🚀</a>
+        </p>
+    </p>
+    <div>
+        <a href="https://pypi.org/project/promptmodel" target="_blank">
+            <img src="https://img.shields.io/pypi/v/promptmodel.svg" alt="PyPI Version">
+        </a>
+        <a href="https://discord.gg/4pUM3C4rbA" target="_blank">
+            <img src="https://dcbadge.vercel.app/api/server/dVTtyEU4?style=flat">
+        </a>
+    </div>
+</div>
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+## Documentation
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
-
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
-
-## Quick Start
-
-Click the button to clone this repository and deploy it on Vercel:
-
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
-
-## Local Development
-
-First, run `pnpm i` to install the dependencies.
-
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
-
-## License
-
-This project is licensed under the MIT License.
+You can find our full documentation [here](https://www.promptmodel.run/docs/intro).
