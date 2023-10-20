@@ -20,6 +20,16 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.gg/dVTtyEU4",
   },
+  head: (
+    <>
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/promptmodel-favicon.png"
+      />
+    </>
+  ),
   feedback: {
     content: null,
   },
