@@ -94,7 +94,7 @@ export function Home() {
               "px-4 pt-10 sm:px-12 sm:justify-center sm:pt-0"
             )}
           >
-            <div className="h-96 lg:h-[50rem] lg:max-h-[50vh]">
+            <div className="h-96 lg:h-[50rem] lg:max-h-[50vh] w-full">
               <Spline
                 scene="https://prod.spline.design/iEcyP67OlC9-JGMl/scene.splinecode"
                 className="h-full w-full"
