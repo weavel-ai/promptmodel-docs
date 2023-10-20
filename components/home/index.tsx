@@ -1,17 +1,18 @@
 "use client";
 
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { useMediaQuery } from "react-responsive";
 //import { logEvent } from "services/amplitude";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Link from "next/link";
 import { useTheme } from "nextra-theme-docs";
 import Spline from "@splinetool/react-spline";
+import { RequestAccessButton } from "./RequestAccessButton";
+import { CheckFat } from "@phosphor-icons/react";
 
 const SUMMARIZATION_PROMPT = `
 SUMMARIZATION_PROMPT = """
@@ -43,7 +44,7 @@ def summary():
 
 export function Home() {
   const [isUploading, setIsUploading] = useState(false);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  // const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const params = useSearchParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -59,16 +60,28 @@ export function Home() {
   //   });
   // }, []);
 
+  const [colorScheme, setColorScheme] = useState(null);
+
   useEffect(() => {
-    console.log(theme);
-  });
+    const htmlElement = document.documentElement;
+    const computedStyle = getComputedStyle(htmlElement);
+    const scheme = computedStyle.getPropertyValue("color-scheme").trim();
+    setColorScheme(scheme);
+  }, []);
+
+  useEffect(() => {
+    setColorScheme(theme);
+  }, [theme]);
 
   return (
-    <main data-theme={theme}>
+    <main data-theme={colorScheme} className="bg-transparent -mt-16">
       <div
-        className="bg-base-100 h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center"
+        className={classNames(
+          "h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center"
+        )}
         ref={containerRef}
       >
+        <div className="!max-h-[100vh] w-full h-full absolute top-0 bg-gradient-to-b from-secondary/20 to-transparent" />
         <div
           className={classNames(
             "flex flex-col items-center justify-start h-max w-full max-w-[100rem]"
@@ -77,17 +90,17 @@ export function Home() {
           <div
             className={classNames(
               "flex flex-col",
-              "h-screen max-w-screen w-full relative z-10",
-              !isMobile && "px-12 items-start justify-center",
-              isMobile && "px-4 pt-32 items-start"
+              "h-screen max-w-screen w-full relative z-10 items-center",
+              "px-4 pt-10 sm:px-12 sm:justify-center sm:pt-0"
             )}
           >
+            <div className="h-96 lg:h-[50rem] lg:max-h-[50vh]">
+              <Spline
+                scene="https://prod.spline.design/iEcyP67OlC9-JGMl/scene.splinecode"
+                className="h-full w-full"
+              />
+            </div>
             <motion.h1
-              className={classNames(
-                !isMobile &&
-                  "text-5xl font-extrabold text-base-content backdrop-blur-md rounded-box",
-                isMobile && "text-4xl font-bold text-base-content text-left"
-              )}
               initial={{ opacity: 0, translateY: 40 }}
               viewport={{ once: true }}
               whileInView={{
@@ -95,55 +108,20 @@ export function Home() {
                 translateY: 0,
               }}
             >
-              Prompt versioning{isMobile ? <br /> : " "}on the cloud
-            </motion.h1>
-
-            <div
-              style={{ perspective: "1000px" }}
-              className={classNames(
-                "overflow-visible ",
-                isMobile && "",
-                !isMobile && "absolute mt-20 right-12 -z-10"
-              )}
-            >
-              <div className="h-64 lg:h-96 lg:max-h-[50vh]">
-                <Spline
-                  scene="https://prod.spline.design/6kMV8Amtvu7CwUZJ/scene.splinecode"
-                  onLoad={(spline) => {
-                    spline.setZoom(3);
-                  }}
-                  className="h-full w-full"
-                />
-              </div>
-              {/*
-              <motion.div
-                initial={{ opacity: 0, translateY: 60 }}
-                viewport={{ once: true }}
-                whileInView={{
-                  translateY: 0,
-                  opacity: 1,
-                  rotateX: 10,
-                  rotateY: -5,
-                  rotateZ: 3,
-                  transformOrigin: "center",
-                }}
-                transition={{ duration: 0.7 }}
+              <p
+                className={classNames(
+                  "text-4xl font-bold text-base-content text-center",
+                  "sm:text-5xl"
+                )}
               >
-                <Image
-                  src="/image2-removebg.png"
-                  draggable={false}
-                  alt="experiments"
-                  width={isMobile ? 400 : 700}
-                  height={isMobile ? 250 : 540}
-                  className={classNames(isMobile && "ms-4")}
-                />
-              </motion.div>*/}
-            </div>
+                Prompt & model versioning on the cloud
+              </p>
+            </motion.h1>
             <motion.div
               className={classNames(
-                "flex flex-col items-start my-10",
-                isMobile && "gap-y-2",
-                !isMobile && "gap-y-4"
+                "flex flex-col items-start",
+                "gap-y-2 my-3",
+                "sm:gap-y-4 sm:my-10"
               )}
               initial={{ opacity: 0, translateY: 40 }}
               viewport={{ once: true }}
@@ -155,34 +133,15 @@ export function Home() {
             >
               <p
                 className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70 backdrop-blur-md rounded-box",
-                  isMobile && "text-xl font-semibold p-1",
-                  !isMobile && "text-2xl font-medium text-center"
+                  "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70 backdrop-blur-md rounded-box text-center",
+                  "text-lg font-semibold p-1",
+                  "sm:text-xl sm:font-medium"
                 )}
               >
-                Build
+                LLM prompt engineering, versioning and evaluation -
                 <span className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-base-content/50 to-base-content">
-                  &nbsp;chains & pipelines&nbsp;
+                  &nbsp;built for developers.&nbsp;
                 </span>
-                with various prompt configurations.
-              </p>
-              <p
-                className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70 backdrop-blur-md rounded-box",
-                  isMobile && "text-xl font-semibold p-1",
-                  !isMobile && "text-2xl font-medium text-center"
-                )}
-              >
-                Run tests, experiment and evaluate your prompts.
-              </p>
-              <p
-                className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70 backdrop-blur-md rounded-box",
-                  isMobile && "text-xl font-semibold p-1",
-                  !isMobile && "text-2xl font-medium text-center"
-                )}
-              >
-                Setup once with our SDK and automate your prompt development.
               </p>
             </motion.div>
             <motion.div
@@ -195,209 +154,262 @@ export function Home() {
               }}
               transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
             >
-              <Link
-                href="/signup"
-                className={classNames(
-                  isMobile ? "h-12 w-42" : "h-16 w-56",
-                  "btn rounded-lg",
-                  "bg-gradient-to-br from-violet-500 from-20% to-primary",
-                  "text-white normal-case text-xl",
-                  "outline-none transition-all hover: shadow-2xl"
-                )}
-              >
-                Start Building
-              </Link>
+              <RequestAccessButton />
             </motion.div>
           </div>
           <div
             className={classNames(
-              "flex flex-col my-32 min-h-[36rem] z-10 gap-y-4 justify-start w-full h-fit relative",
-              isMobile && "px-6 items-center",
-              !isMobile && "items-end pr-12"
+              "flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative",
+              "px-6 items-center flex-col",
+              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6"
             )}
           >
             <motion.div
-              className={classNames(
-                isMobile && "self-end",
-                !isMobile && "px-2 mb-6"
-              )}
-              initial={{ opacity: 0, translateY: 40 }}
+              className="w-fit"
               viewport={{ once: true }}
-              whileInView={{ opacity: 1, translateY: 0 }}
-            >
-              <h1
-                className={classNames(
-                  "text-base-content",
-                  isMobile && "text-4xl font-bold self-end text-end",
-                  !isMobile && "text-5xl font-extrabold"
-                )}
-              >
-                Free your code{isMobile ? <br /> : " "}from prompts
-              </h1>
-            </motion.div>
-            {!isMobile && <SummarizationPromptCode />}
-            {
-              <div className={classNames(isMobile && "h-fit")}>
-                <PromptmodelCode isMobile={isMobile} />
-              </div>
-            }
-            <motion.div
-              className="backdrop-blur-md rounded-box"
-              viewport={{ once: true }}
-              initial={{ opacity: 0, translateY: 40 }}
+              initial={{ opacity: 0, translateX: -300 }}
               whileInView={{
                 opacity: 1,
-                translateY: 0,
+                translateX: 0,
               }}
-              transition={{ delay: 0.2, type: "false" }}
+              transition={{ delay: 0.6 }}
             >
-              <h3
-                className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70",
-                  isMobile && "text-2xl font-medium text-right",
-                  !isMobile && "text-3xl font-medium"
-                )}
-              >
-                Update prompts without changing your code.
-              </h3>
+              <Image
+                src="/demos/deployment-publishing.gif"
+                alt="Publishing"
+                width={800}
+                height={600}
+                className={classNames("rounded-xl")}
+              />
             </motion.div>
+            <div className={classNames("sm:flex sm:flex-col sm:gap-y-4")}>
+              <motion.div
+                className={classNames("self-start mt-6 mb-2 sm:m-0")}
+                initial={{ opacity: 0, translateY: 40 }}
+                viewport={{ once: true }}
+                whileInView={{ opacity: 1, translateY: 0 }}
+              >
+                <h1
+                  className={classNames(
+                    "text-base-content",
+                    "text-3xl font-bold self-start text-start",
+                    "sm:text-4xl"
+                  )}
+                >
+                  Scale your LLM development
+                </h1>
+              </motion.div>
+              <motion.div
+                className="backdrop-blur-md rounded-box"
+                viewport={{ once: true }}
+                initial={{ opacity: 0, translateY: 40 }}
+                whileInView={{
+                  opacity: 1,
+                  translateY: 0,
+                }}
+                transition={{ delay: 0.2, type: "false" }}
+              >
+                <h3
+                  className={classNames(
+                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
+                    "text-lg font-medium text-start",
+                    "sm:text-xl"
+                  )}
+                >
+                  Use better prompts without changing your code.
+                </h3>
+              </motion.div>
+            </div>
           </div>
           <div
             className={classNames(
-              "flex flex-col my-32 min-h-[36rem] z-10 items-start justify-start gap-y-4  w-full h-fit relative",
-              isMobile && "px-4",
-              !isMobile && "pl-12"
+              "flex z-10 justify-start w-full h-fit relative",
+              "px-6 items-center flex-col gap-y-8 my-16",
+              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6 sm:gap-y-4 sm:my-32"
             )}
           >
             <motion.div
-              className={classNames(
-                "px-2",
-                isMobile && "",
-                !isMobile && "backdrop-blur-md rounded-box bg-base-100/60"
-              )}
+              className="w-fit sm:hidden"
               viewport={{ once: true }}
-              initial={{ opacity: 0, translateY: 40 }}
-              whileInView={{ opacity: 1, translateY: 0 }}
+              initial={{ opacity: 0, translateX: 300 }}
+              whileInView={{
+                opacity: 1,
+                translateX: 0,
+              }}
+              transition={{ delay: 0.6 }}
             >
-              <h1
-                className={classNames(
-                  "text-base-content",
-                  isMobile && "text-4xl font-extrabold",
-                  !isMobile && "text-5xl font-extrabold"
-                )}
-              >
-                Experiment. Evaluate.{isMobile ? <br /> : " "}Publish.
-              </h1>
+              <Image
+                src="/demos/engineering.gif"
+                alt="Engineering"
+                width={800}
+                height={600}
+                className={classNames("rounded-xl")}
+              />
             </motion.div>
             <div
-              style={{ perspective: "1000px" }}
-              className={classNames(
-                "overflow-visible ",
-                isMobile && "ml-8 my-8",
-                !isMobile && "absolute right-12 top-20 -z-10"
-              )}
+              className={classNames("sm:flex sm:flex-col sm:gap-y-4", "w-fit")}
             >
               <motion.div
-                initial={{ opacity: 0, translateY: 60 }}
+                className={classNames("sm:self-start sm:mt-6 sm:mb-2", "w-fit")}
+                initial={{ opacity: 0, translateY: 40 }}
                 viewport={{ once: true }}
-                whileInView={{
-                  translateY: 0,
-                  opacity: 1,
-                  rotateX: 10,
-                  rotateY: -5,
-                  rotateZ: 3,
-                  transformOrigin: "center",
-                }}
-                transition={{ duration: 0.7 }}
+                whileInView={{ opacity: 1, translateY: 0 }}
               >
-                <Image
-                  src="/promptmodel-versions.png"
-                  draggable={false}
-                  alt="experiments"
-                  width={700}
-                  height={540}
-                />
+                <h1
+                  className={classNames(
+                    "text-base-content w-fit",
+                    "text-3xl font-bold self-start text-start",
+                    "sm:text-4xl sm:font-bold"
+                  )}
+                >
+                  Prompt engineering for developers
+                </h1>
+              </motion.div>
+              <motion.div
+                className="max-w-md"
+                viewport={{ once: true }}
+                initial={{ opacity: 0, translateY: 40 }}
+                whileInView={{
+                  opacity: 1,
+                  translateY: 0,
+                }}
+                transition={{ delay: 0.2, type: "false" }}
+              >
+                <h3
+                  className={classNames(
+                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
+                    "text-lg text-start",
+                    "sm:text-xl"
+                  )}
+                >
+                  A prompt engineering dashboard that feels like an extension of
+                  your IDE.
+                </h3>
+                <div className="flex flex-col gap-y-2 ml-2 mt-4 text-neutral-content text-lg">
+                  <div className="flex flex-row gap-x-4 items-center">
+                    <CheckFat
+                      size={24}
+                      weight="fill"
+                      className="text-base-content"
+                    />
+                    <p>Visual differences between prompts</p>
+                  </div>
+                  <div className="flex flex-row gap-x-4 items-center">
+                    <CheckFat
+                      size={24}
+                      weight="fill"
+                      className="text-base-content"
+                    />
+                    <p>Synchronized with your codebase in real-time</p>
+                  </div>
+                  <div className="flex flex-row gap-x-4 items-center">
+                    <CheckFat
+                      size={24}
+                      weight="fill"
+                      className="text-base-content"
+                    />
+                    <p>LLM generations called from your local environment</p>
+                  </div>
+                </div>
               </motion.div>
             </div>
             <motion.div
-              className="backdrop-blur-md rounded-box bg-base-100/60"
-              initial={{ opacity: 0, translateY: 40 }}
+              className="w-fit hidden sm:block"
               viewport={{ once: true }}
+              initial={{ opacity: 0, translateX: 300 }}
               whileInView={{
                 opacity: 1,
-                translateY: 0,
+                translateX: 0,
               }}
-              transition={{ delay: 0.2, type: "false" }}
+              transition={{ delay: 0.6 }}
             >
-              <h3
-                className={classNames(
-                  "text-transparent",
-                  "bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70",
-                  isMobile && "text-xl font-bold ps-1",
-                  !isMobile && "text-3xl font-medium"
-                )}
-              >
-                Scale your prompt{isMobile ? <br /> : " "}development workflow.
-              </h3>
+              <Image
+                src="/demos/engineering.gif"
+                alt="Engineering"
+                width={800}
+                height={600}
+                className={classNames("rounded-xl")}
+              />
             </motion.div>
+          </div>
+          <div
+            className={classNames(
+              "flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative",
+              "px-6 items-center flex-col",
+              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-8"
+            )}
+          >
             <motion.div
-              className="backdrop-blur-md rounded-box bg-base-100/60"
-              initial={{ opacity: 0, translateY: 40 }}
+              className={classNames(
+                "rounded-xl bg-gradient-to-br from-base-200/90 to-base-100/90 flex justify-center items-center sm:w-[36rem] sm:h-[24rem]",
+                "w-[90vw] h-[56vw]"
+              )}
               viewport={{ once: true }}
+              initial={{ opacity: 0, translateX: -300 }}
               whileInView={{
                 opacity: 1,
-                translateY: 0,
+                translateX: 0,
               }}
-              transition={{ delay: 0.2, type: "false" }}
+              transition={{ delay: 0.6 }}
             >
-              <h3
-                className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70",
-                  isMobile && "text-xl font-bold ps-1",
-                  !isMobile && "text-2xl font-medium"
-                )}
-              >
-                Run experiments and compare various prompt configurations.
-              </h3>
+              <p className="text-lg font-medium">Coming soon</p>
             </motion.div>
-            <motion.div
-              className="backdrop-blur-md rounded-box bg-base-100/60"
-              initial={{ opacity: 0, translateY: 40 }}
-              viewport={{ once: true }}
-              whileInView={{
-                opacity: 1,
-                translateY: 0,
-              }}
-              transition={{ delay: 0.2, type: "false" }}
-            >
-              <h3
-                className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70",
-                  isMobile && "text-xl font-bold ps-1",
-                  !isMobile && "text-2xl font-medium"
-                )}
+            <div className={classNames("sm:flex sm:flex-col sm:gap-y-4")}>
+              <motion.div
+                className={classNames("self-start mt-6 mb-2", "sm:m-0")}
+                initial={{ opacity: 0, translateY: 40 }}
+                viewport={{ once: true }}
+                whileInView={{ opacity: 1, translateY: 0 }}
               >
-                Publish the best configuration{isMobile ? <br /> : " "}in a
-                blink.
-              </h3>
-            </motion.div>
+                <h1
+                  className={classNames(
+                    "text-base-content",
+                    "text-3xl font-bold self-start text-start",
+                    "sm:text-4xl"
+                  )}
+                >
+                  Evaluation metrics for development & production
+                </h1>
+              </motion.div>
+              <motion.div
+                className="backdrop-blur-md rounded-box"
+                viewport={{ once: true }}
+                initial={{ opacity: 0, translateY: 40 }}
+                whileInView={{
+                  opacity: 1,
+                  translateY: 0,
+                }}
+                transition={{ delay: 0.2, type: "false" }}
+              >
+                <h3
+                  className={classNames(
+                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
+                    "text-lg font-medium text-start",
+                    "sm:text-xl"
+                  )}
+                >
+                  Find the most optimal prompt & LLM based on automated
+                  evalutaion.
+                </h3>
+              </motion.div>
+            </div>
           </div>
         </div>
         <div
           className={classNames(
             "flex flex-col items-center justify-center",
             "max-w-screen w-full relative z-10",
-            "bg-base-200",
+            "bg-gradient-to-b from-base-content/5 to-transparent",
             "text-center",
-            isMobile && "min-h-[40vh]",
-            !isMobile && "min-h-[50vh] pl-12"
+            "min-h-[40vh]",
+            "sm:min-h-[50vh] sm:pl-12"
           )}
         >
           <motion.h1
             className={classNames(
               "text-base-content",
-              isMobile && "text-3xl font-extrabold mb-5",
-              !isMobile && "text-5xl font-extrabold mb-10"
+              "text-3xl font-bold mb-5 px-4",
+              "sm:text-4xl lg:text-5xl sm:mb-10 sm:px-0"
             )}
             initial={{ opacity: 0, translateY: 40 }}
             viewport={{ once: true }}
@@ -419,12 +431,12 @@ export function Home() {
           >
             <h3
               className={classNames(
-                "font-medium text-transparent bg-clip-text bg-gradient-to-b from-secondary-content/60 from-20% to-secondary-content/70",
-                isMobile && "text-xl mb-4",
-                !isMobile && "text-2xl mb-8"
+                "font-medium text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
+                "text-xl mb-4",
+                "sm:text-2xl sm:mb-8"
               )}
             >
-              Join our closed beta.
+              Join our closed alpha.
             </h3>
           </motion.div>
           <motion.div
@@ -437,19 +449,7 @@ export function Home() {
             }}
             transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
           >
-            {/* <div className="mt-4 rounded-md px-6 py-3 bg-gradient-to-br from-primary to-primary/60"> */}
-            <Link
-              href="/signup"
-              className={classNames(
-                "mt-4 btn bg-gradient-to-br from-violet-500 from-20% to-primary text-white rounded-lg normal-case text-xl",
-                "transition-all hover:shadow-2xl shadow-secondary outline-none",
-                isMobile && "h-12 w-42",
-                !isMobile && "h-16 w-56"
-              )}
-            >
-              Start Building
-            </Link>
-            {/* </div> */}
+            <RequestAccessButton />
           </motion.div>
         </div>
       </div>
@@ -461,10 +461,10 @@ const SummarizationPromptCode = () => {
   return (
     <div
       style={{ perspective: "1000px" }}
-      className="overflow-visible absolute left-16 bottom-20 -z-10 scale-50 sm:scale-100"
+      className="overflow-visible absolute left-16 bottom-16 -z-10 scale-50 sm:scale-100"
     >
       <motion.div
-        className="mockup-code bg-base-300/50  hover:shadow-2xl transition-shadow duration-300"
+        className="mockup-code bg-base-200 shadow-base-200 hover:shadow-2xl transition-shadow duration-300"
         initial={{ opacity: 0.5, rotateX: 40 }}
         viewport={{ once: true }}
         whileHover={{ translateY: -10 }}
@@ -477,7 +477,7 @@ const SummarizationPromptCode = () => {
         }}
         transition={{ duration: 0.7 }}
       >
-        <SyntaxHighlighter language="python" style={coldarkDark} PreTag="div">
+        <SyntaxHighlighter language="python" style={nightOwl} PreTag="div">
           {SUMMARIZATION_PROMPT}
         </SyntaxHighlighter>
       </motion.div>
@@ -492,11 +492,11 @@ const PromptmodelCode = ({ isMobile }) => {
       className={classNames(
         "overflow-visible ",
         isMobile && "scale-50",
-        !isMobile && "absolute right-16 bottom-0 -z-10 scale-50 sm:scale-100"
+        !isMobile && "absolute right-16 -bottom-4 -z-10 scale-50 sm:scale-100"
       )}
     >
       <motion.div
-        className="mockup-code bg-base-300/50 hover:shadow-2xl transition-shadow duration-300"
+        className="mockup-code bg-base-200 shadow-base-200 hover:shadow-2xl transition-shadow duration-300"
         initial={{ opacity: 0.5, rotateX: 40 }}
         viewport={{ once: true }}
         onViewportEnter={() => {}}
@@ -510,7 +510,7 @@ const PromptmodelCode = ({ isMobile }) => {
         }}
         transition={{ duration: 0.7 }}
       >
-        <SyntaxHighlighter language="python" style={coldarkDark} PreTag="div">
+        <SyntaxHighlighter language="python" style={nightOwl} PreTag="div">
           {PROMPTMODEL_CODE}
         </SyntaxHighlighter>
       </motion.div>

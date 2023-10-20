@@ -1,18 +1,32 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
+import { MainContentWrapper } from "./components/MainContentWrapper";
+import { Logo } from "./components/Logo";
+import { RequestAccessButton } from "./components/home/RequestAccessButton";
 
 const config: DocsThemeConfig = {
-  logo: <span>PromptModel</span>,
-  project: {
-    link: "https://github.com/weavel-fastllm/fastllm",
+  logo: <Logo />,
+  // project: {
+  //   link: "https://github.com/weavel-ai/promptmodel",
+  // },
+  navbar: {
+    extraContent: (
+      <>
+        <RequestAccessButton small />
+      </>
+    ),
   },
   chat: {
-    link: "https://discord.com",
+    link: "https://discord.gg/dVTtyEU4",
   },
-  docsRepositoryBase: "https://github.com/weavel-fastllm/fastllm",
+  feedback: {
+    content: null,
+  },
+  main: MainContentWrapper,
+  // docsRepositoryBase: "https://github.com/weavel-ai/promptmodel",
   footer: {
-    text: "PromptModel © 2023 by Weavel Inc.",
+    text: "PromptModel © 2023 by Weavel",
   },
   useNextSeoProps() {
     const { asPath } = useRouter();

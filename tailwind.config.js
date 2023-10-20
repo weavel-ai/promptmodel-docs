@@ -11,6 +11,7 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {},
     },
   },
   daisyui: {
@@ -25,10 +26,10 @@ module.exports = {
           accent: "#37cdbe",
           "accent-content": "#161E28",
           neutral: "#3d4451",
-          "neutral-content": "#ffffff",
-          "base-100": "#ffffff",
-          "base-200": "#F2F2F2",
-          "base-300": "#ffffff",
+          "neutral-content": "#121921",
+          "base-100": "#f2f2f2",
+          "base-200": "#f0f0f0",
+          "base-300": "#eeeeee",
           "base-content": "#121921",
         },
       },
