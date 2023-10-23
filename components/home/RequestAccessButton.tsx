@@ -7,7 +7,7 @@ export const RequestAccessButton = ({ small = false }: { small?: boolean }) => {
       href="https://formless.ai/c/RtUfMCsh9YSs"
       target="_blank"
       className={classNames(
-        "btn btn-sm text-white rounded-lg normal-case border-primary border-2 hover:border-none",
+        "btn btn-sm text-base-content rounded-lg normal-case border-primary border-2 hover:border-none",
         "bg-transparent hover:bg-gradient-to-r hover:from-violet-500 hover:to-primary",
         "transition-all hover:shadow-2xl shadow-secondary outline-none",
         "scale-[85%] sm:scale-100",
