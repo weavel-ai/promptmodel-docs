@@ -4,6 +4,7 @@
     "theme": { "breadcrumb": false }
   },
   "getting-started": "Getting Started",
+  "promptmodel": "PromptModel",
   "migration": {
     "title": "Migrating Prompts",
     "theme": { "breadcrumb": false }

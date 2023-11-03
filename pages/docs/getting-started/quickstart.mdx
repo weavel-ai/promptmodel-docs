@@ -1,4 +1,4 @@
-import { Callout } from "nextra/components";
+import { Callout } from 'nextra/components'
 
 # Quickstart 🚀
 
@@ -74,7 +74,8 @@ extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
 @client.register
 def test():
     response = PromptModel("choose_service").run_and_parse({})
-    print(response)
+    print(response.parsed_outputs)
+    # Example ouptut : {"service_name" : "make_account", "arguments" : "[name, email, password]"}
 ```
 
 ## Prompt Engineering

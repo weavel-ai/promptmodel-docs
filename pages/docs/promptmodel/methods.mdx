@@ -1,0 +1,119 @@
+# Methods
+
+`PromptModel` have not only `run` and `arun` methods, but also useful methods for parsing outputs.
+
+## How to use
+
+All methods of `PromptModel` do not raise error.
+
+Instead, `error` and `error_log` attributes will be set if error occurs.
+
+If you use LLM API call with error handling, your previous code will be like this.
+
+```python
+max_retry = 3
+trial = 0
+while trial < max_retry:
+	try:
+		res = openai.ChatCompletion.create(**kwargs)
+		parsed_outputs = parser(res)
+		break
+	except Exception as e:
+		print(e)
+		trial += 1
+print(parsed_outputs)
+```
+
+If you use `PromptModel`, you can handle error like this.
+
+```python
+max_retry = 3
+trial = 0
+while trial < max_retry:
+	res = PromptModel("example").run_and_parse(kwargs)
+	if res.error:
+		print(res.error_log)
+		trial += 1
+		continue
+	break
+print(res.parsed_outputs)
+```
+
+## run
+
+`run()` method is a basic method for call LLM.
+
+You can use `run()` with inputs as Dictionary.
+
+```python
+res = PromptModel("extract_keyword").run({"text": "I like apple."})
+print(res.raw_output)
+# apple
+```
+
+You can also use `arun()` for asynchronous call.
+
+```python
+res = await PromptModel("extract_keyword").arun({"text": "I like apple."})
+print(res.raw_output)
+# apple
+```
+
+## stream
+
+`stream()` method is a method for call LLM with streaming.
+It is same with OpenAI API call with `stream=True`.
+
+```python
+res = PromptModel("start_conversation").stream()
+for chunk in res:
+	print(chunk.raw_output)
+	# Hi
+	# ,
+	# how
+	# are
+	# you
+	# ?
+```
+
+You can also use `astream()` for asynchronous call.
+
+```python
+res = await PromptModel("start_conversation").astream()
+async for chunk in res:
+	print(chunk.raw_output)
+	# Hi
+	# ,
+	# how
+	# are
+	# you
+	# ?
+```
+
+## parse
+
+PromptModel can have `parsing_type` and `output_keys` attributes.
+
+If you set `parsing_type` and `output_keys` when you engineer your `PromptModel`, output keys can be parsed automatically.
+
+Response of promptmodel will be parsed automatically and saved in `parsed_outputs` attribute as `Dict[str, str]`.
+
+### run_and_parse
+
+```python
+res = PromptModel("get_keyword_and_score").run_and_parse({"text": text})
+print(res.parsed_outputs)
+# {'keyword': 'apple', 'score': 0.9}
+```
+
+### stream_and_parse
+
+```python
+res = PromptModel("get_keyword_and_score").stream_and_parse({"text": text})
+for chunk in res:
+	print(chunk.parsed_outputs)
+	# {'keyword': 'apple'}
+	# {'score': 0}
+	# {'score': .}
+	# {'score': 9}
+```
