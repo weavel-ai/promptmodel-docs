@@ -1,9 +1,9 @@
-import React from "react";
-import { DocsThemeConfig } from "nextra-theme-docs";
-import { useRouter } from "next/router";
-import { MainContentWrapper } from "./components/MainContentWrapper";
-import { Logo } from "./components/Logo";
-import { RequestAccessButton } from "./components/home/RequestAccessButton";
+import React from 'react'
+import { DocsThemeConfig } from 'nextra-theme-docs'
+import { useRouter } from 'next/router'
+import { MainContentWrapper } from './components/MainContentWrapper'
+import { Logo } from './components/Logo'
+import { RequestDemoButton } from './components/home/RequestDemoButton'
 
 const config: DocsThemeConfig = {
   logo: <Logo />,
@@ -13,12 +13,12 @@ const config: DocsThemeConfig = {
   navbar: {
     extraContent: (
       <>
-        <RequestAccessButton small />
+        <RequestDemoButton small />
       </>
-    ),
+    )
   },
   chat: {
-    link: "https://discord.gg/dVTtyEU4",
+    link: 'https://discord.gg/dVTtyEU4'
   },
   head: (
     <>
@@ -31,21 +31,21 @@ const config: DocsThemeConfig = {
     </>
   ),
   feedback: {
-    content: null,
+    content: null
   },
   main: MainContentWrapper,
   // docsRepositoryBase: "https://github.com/weavel-ai/promptmodel",
   footer: {
-    text: "PromptModel © 2023 by Weavel",
+    text: 'PromptModel © 2023 by Weavel'
   },
   useNextSeoProps() {
-    const { asPath } = useRouter();
-    if (asPath !== "/") {
+    const { asPath } = useRouter()
+    if (asPath !== '/') {
       return {
-        titleTemplate: "%s - PromptModel",
-      };
+        titleTemplate: '%s - PromptModel'
+      }
     }
-  },
-};
+  }
+}
 
-export default config;
+export default config

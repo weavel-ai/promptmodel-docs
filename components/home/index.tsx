@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import classNames from "classnames";
-import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import classNames from 'classnames'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import Image from 'next/image'
 //import { logEvent } from "services/amplitude";
-import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism";
-import Link from "next/link";
-import { useTheme } from "nextra-theme-docs";
-import Spline from "@splinetool/react-spline";
-import { RequestAccessButton } from "./RequestAccessButton";
-import { CheckFat } from "@phosphor-icons/react";
-import { logEvent } from "../../services/amplitude";
+import { useSearchParams } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import Link from 'next/link'
+import { useTheme } from 'nextra-theme-docs'
+import Spline from '@splinetool/react-spline'
+import { RequestDemoButton } from './RequestDemoButton'
+import { CheckFat } from '@phosphor-icons/react'
+import { logEvent } from '../../services/amplitude'
 
 const SUMMARIZATION_PROMPT = `
 SUMMARIZATION_PROMPT = """
@@ -26,7 +26,7 @@ Output format:
 [Title end]
 [Summary start]
 ...
-[Summary end]"""`;
+[Summary end]"""`
 
 const PROMPTMODEL_CODE = `
 from promptmodel import Client, PromptModel
@@ -41,58 +41,58 @@ extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
 def summary():
     response = PromptModel("summary").generate({})
     return response
-`;
+`
 
 export function Home() {
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false)
   // const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const params = useSearchParams();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const params = useSearchParams()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { theme } = useTheme()
 
   // Amplitude logging
   useEffect(() => {
-    logEvent("page_view:home", {
-      utm_source: params.get("utm_source"),
-      utm_medium: params.get("utm_medium"),
-      utm_campaign: params.get("utm_campaign"),
-      utm_content: params.get("utm_content"),
-      utm_term: params.get("utm_term"),
-    });
-  }, []);
+    logEvent('page_view:home', {
+      utm_source: params.get('utm_source'),
+      utm_medium: params.get('utm_medium'),
+      utm_campaign: params.get('utm_campaign'),
+      utm_content: params.get('utm_content'),
+      utm_term: params.get('utm_term')
+    })
+  }, [])
 
-  const [colorScheme, setColorScheme] = useState(null);
-
-  useEffect(() => {
-    const htmlElement = document.documentElement;
-    const computedStyle = getComputedStyle(htmlElement);
-    const scheme = computedStyle.getPropertyValue("color-scheme").trim();
-    setColorScheme(scheme);
-  }, []);
+  const [colorScheme, setColorScheme] = useState(null)
 
   useEffect(() => {
-    setColorScheme(theme);
-  }, [theme]);
+    const htmlElement = document.documentElement
+    const computedStyle = getComputedStyle(htmlElement)
+    const scheme = computedStyle.getPropertyValue('color-scheme').trim()
+    setColorScheme(scheme)
+  }, [])
+
+  useEffect(() => {
+    setColorScheme(theme)
+  }, [theme])
 
   return (
     <main data-theme={colorScheme} className="bg-transparent -mt-16">
       <div
         className={classNames(
-          "h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center"
+          'h-full w-full overflow-y-auto overflow-x-hidden flex flex-col justify-start items-center'
         )}
         ref={containerRef}
       >
         <div className="!max-h-[100vh] w-full h-full absolute top-0 bg-gradient-to-b from-secondary/20 to-transparent" />
         <div
           className={classNames(
-            "flex flex-col items-center justify-start h-max w-full max-w-[100rem]"
+            'flex flex-col items-center justify-start h-max w-full max-w-[100rem]'
           )}
         >
           <div
             className={classNames(
-              "flex flex-col",
-              "h-screen max-w-screen w-full relative z-10 items-center",
-              "px-4 pt-10 sm:px-12 sm:justify-center sm:pt-0"
+              'flex flex-col',
+              'h-screen max-w-screen w-full relative z-10 items-center',
+              'px-4 pt-10 sm:px-12 sm:justify-center sm:pt-0'
             )}
           >
             <div className="h-96 lg:h-[50rem] lg:max-h-[50vh] w-full">
@@ -106,13 +106,13 @@ export function Home() {
               viewport={{ once: true }}
               whileInView={{
                 opacity: 1,
-                translateY: 0,
+                translateY: 0
               }}
             >
               <p
                 className={classNames(
-                  "text-4xl font-bold text-base-content text-center",
-                  "sm:text-5xl"
+                  'text-4xl font-bold text-base-content text-center',
+                  'sm:text-5xl'
                 )}
               >
                 Prompt & model versioning on the cloud
@@ -120,23 +120,23 @@ export function Home() {
             </motion.h1>
             <motion.div
               className={classNames(
-                "flex flex-col items-start",
-                "gap-y-2 my-3",
-                "sm:gap-y-4 sm:my-10"
+                'flex flex-col items-start',
+                'gap-y-2 my-3',
+                'sm:gap-y-4 sm:my-10'
               )}
               initial={{ opacity: 0, translateY: 40 }}
               viewport={{ once: true }}
               whileInView={{
                 opacity: 1,
-                translateY: 0,
+                translateY: 0
               }}
               transition={{ delay: 0.2 }}
             >
               <p
                 className={classNames(
-                  "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70 backdrop-blur-md rounded-box text-center",
-                  "text-lg font-semibold p-1",
-                  "sm:text-xl sm:font-medium"
+                  'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70 backdrop-blur-md rounded-box text-center',
+                  'text-lg font-semibold p-1',
+                  'sm:text-xl sm:font-medium'
                 )}
               >
                 LLM prompt engineering, versioning and evaluation -
@@ -151,18 +151,18 @@ export function Home() {
               whileInView={{
                 opacity: 1,
                 scale: 1,
-                rotate: 0,
+                rotate: 0
               }}
-              transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+              transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
             >
-              <RequestAccessButton />
+              <RequestDemoButton />
             </motion.div>
           </div>
           <div
             className={classNames(
-              "flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative",
-              "px-6 items-center flex-col",
-              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6"
+              'flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative',
+              'px-6 items-center flex-col',
+              'sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6'
             )}
           >
             <motion.div
@@ -171,7 +171,7 @@ export function Home() {
               initial={{ opacity: 0, translateX: -300 }}
               whileInView={{
                 opacity: 1,
-                translateX: 0,
+                translateX: 0
               }}
               transition={{ delay: 0.6 }}
             >
@@ -180,21 +180,21 @@ export function Home() {
                 alt="Publishing"
                 width={800}
                 height={600}
-                className={classNames("rounded-xl")}
+                className={classNames('rounded-xl')}
               />
             </motion.div>
-            <div className={classNames("sm:flex sm:flex-col sm:gap-y-4")}>
+            <div className={classNames('sm:flex sm:flex-col sm:gap-y-4')}>
               <motion.div
-                className={classNames("self-start mt-6 mb-2 sm:m-0")}
+                className={classNames('self-start mt-6 mb-2 sm:m-0')}
                 initial={{ opacity: 0, translateY: 40 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, translateY: 0 }}
               >
                 <h1
                   className={classNames(
-                    "text-base-content",
-                    "text-3xl font-bold self-start text-start",
-                    "sm:text-4xl"
+                    'text-base-content',
+                    'text-3xl font-bold self-start text-start',
+                    'sm:text-4xl'
                   )}
                 >
                   Scale your LLM development
@@ -206,15 +206,15 @@ export function Home() {
                 initial={{ opacity: 0, translateY: 40 }}
                 whileInView={{
                   opacity: 1,
-                  translateY: 0,
+                  translateY: 0
                 }}
-                transition={{ delay: 0.2, type: "false" }}
+                transition={{ delay: 0.2, type: 'false' }}
               >
                 <h3
                   className={classNames(
-                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
-                    "text-lg font-medium text-start",
-                    "sm:text-xl"
+                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-lg font-medium text-start',
+                    'sm:text-xl'
                   )}
                 >
                   Use better prompts without changing your code.
@@ -224,9 +224,9 @@ export function Home() {
           </div>
           <div
             className={classNames(
-              "flex z-10 justify-start w-full h-fit relative",
-              "px-6 items-center flex-col gap-y-8 my-16",
-              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6 sm:gap-y-4 sm:my-32"
+              'flex z-10 justify-start w-full h-fit relative',
+              'px-6 items-center flex-col gap-y-8 my-16',
+              'sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-6 sm:gap-y-4 sm:my-32'
             )}
           >
             <motion.div
@@ -235,7 +235,7 @@ export function Home() {
               initial={{ opacity: 0, translateX: 300 }}
               whileInView={{
                 opacity: 1,
-                translateX: 0,
+                translateX: 0
               }}
               transition={{ delay: 0.6 }}
             >
@@ -244,23 +244,23 @@ export function Home() {
                 alt="Engineering"
                 width={800}
                 height={600}
-                className={classNames("rounded-xl")}
+                className={classNames('rounded-xl')}
               />
             </motion.div>
             <div
-              className={classNames("sm:flex sm:flex-col sm:gap-y-4", "w-fit")}
+              className={classNames('sm:flex sm:flex-col sm:gap-y-4', 'w-fit')}
             >
               <motion.div
-                className={classNames("sm:self-start sm:mt-6 sm:mb-2", "w-fit")}
+                className={classNames('sm:self-start sm:mt-6 sm:mb-2', 'w-fit')}
                 initial={{ opacity: 0, translateY: 40 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, translateY: 0 }}
               >
                 <h1
                   className={classNames(
-                    "text-base-content w-fit",
-                    "text-3xl font-bold self-start text-start",
-                    "sm:text-4xl sm:font-bold"
+                    'text-base-content w-fit',
+                    'text-3xl font-bold self-start text-start',
+                    'sm:text-4xl sm:font-bold'
                   )}
                 >
                   Prompt engineering for developers
@@ -272,15 +272,15 @@ export function Home() {
                 initial={{ opacity: 0, translateY: 40 }}
                 whileInView={{
                   opacity: 1,
-                  translateY: 0,
+                  translateY: 0
                 }}
-                transition={{ delay: 0.2, type: "false" }}
+                transition={{ delay: 0.2, type: 'false' }}
               >
                 <h3
                   className={classNames(
-                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
-                    "text-lg text-start",
-                    "sm:text-xl"
+                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-lg text-start',
+                    'sm:text-xl'
                   )}
                 >
                   A prompt engineering dashboard that feels like an extension of
@@ -320,7 +320,7 @@ export function Home() {
               initial={{ opacity: 0, translateX: 300 }}
               whileInView={{
                 opacity: 1,
-                translateX: 0,
+                translateX: 0
               }}
               transition={{ delay: 0.6 }}
             >
@@ -329,44 +329,44 @@ export function Home() {
                 alt="Engineering"
                 width={800}
                 height={600}
-                className={classNames("rounded-xl")}
+                className={classNames('rounded-xl')}
               />
             </motion.div>
           </div>
           <div
             className={classNames(
-              "flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative",
-              "px-6 items-center flex-col",
-              "sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-8"
+              'flex my-32 z-10 gap-y-4 justify-start w-full h-fit relative',
+              'px-6 items-center flex-col',
+              'sm:min-h-[36rem] sm:px-12 sm:flex-row sm:justify-between sm:gap-x-8'
             )}
           >
             <motion.div
               className={classNames(
-                "rounded-xl bg-gradient-to-br from-base-200/90 to-base-100/90 flex justify-center items-center sm:w-[36rem] sm:h-[24rem]",
-                "w-[90vw] h-[56vw]"
+                'rounded-xl bg-gradient-to-br from-base-200/90 to-base-100/90 flex justify-center items-center sm:w-[36rem] sm:h-[24rem]',
+                'w-[90vw] h-[56vw]'
               )}
               viewport={{ once: true }}
               initial={{ opacity: 0, translateX: -300 }}
               whileInView={{
                 opacity: 1,
-                translateX: 0,
+                translateX: 0
               }}
               transition={{ delay: 0.6 }}
             >
               <p className="text-lg font-medium">Coming soon</p>
             </motion.div>
-            <div className={classNames("sm:flex sm:flex-col sm:gap-y-4")}>
+            <div className={classNames('sm:flex sm:flex-col sm:gap-y-4')}>
               <motion.div
-                className={classNames("self-start mt-6 mb-2", "sm:m-0")}
+                className={classNames('self-start mt-6 mb-2', 'sm:m-0')}
                 initial={{ opacity: 0, translateY: 40 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, translateY: 0 }}
               >
                 <h1
                   className={classNames(
-                    "text-base-content",
-                    "text-3xl font-bold self-start text-start",
-                    "sm:text-4xl"
+                    'text-base-content',
+                    'text-3xl font-bold self-start text-start',
+                    'sm:text-4xl'
                   )}
                 >
                   Evaluation metrics for development & production
@@ -378,15 +378,15 @@ export function Home() {
                 initial={{ opacity: 0, translateY: 40 }}
                 whileInView={{
                   opacity: 1,
-                  translateY: 0,
+                  translateY: 0
                 }}
-                transition={{ delay: 0.2, type: "false" }}
+                transition={{ delay: 0.2, type: 'false' }}
               >
                 <h3
                   className={classNames(
-                    "text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
-                    "text-lg font-medium text-start",
-                    "sm:text-xl"
+                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-lg font-medium text-start',
+                    'sm:text-xl'
                   )}
                 >
                   Find the most optimal prompt & LLM based on automated
@@ -398,25 +398,25 @@ export function Home() {
         </div>
         <div
           className={classNames(
-            "flex flex-col items-center justify-center",
-            "max-w-screen w-full relative z-10",
-            "bg-gradient-to-b from-base-content/5 to-transparent",
-            "text-center",
-            "min-h-[40vh]",
-            "sm:min-h-[50vh] sm:pl-12"
+            'flex flex-col items-center justify-center',
+            'max-w-screen w-full relative z-10',
+            'bg-gradient-to-b from-base-content/5 to-transparent',
+            'text-center',
+            'min-h-[40vh]',
+            'sm:min-h-[50vh] sm:pl-12'
           )}
         >
           <motion.h1
             className={classNames(
-              "text-base-content",
-              "text-3xl font-bold mb-5 px-4",
-              "sm:text-4xl lg:text-5xl sm:mb-10 sm:px-0"
+              'text-base-content',
+              'text-3xl font-bold mb-5 px-4',
+              'sm:text-4xl lg:text-5xl sm:mb-10 sm:px-0'
             )}
             initial={{ opacity: 0, translateY: 40 }}
             viewport={{ once: true }}
             whileInView={{
               opacity: 1,
-              translateY: 0,
+              translateY: 0
             }}
           >
             Start scaling your prompts now.
@@ -426,15 +426,15 @@ export function Home() {
             viewport={{ once: true }}
             whileInView={{
               opacity: 1,
-              translateY: 0,
+              translateY: 0
             }}
-            transition={{ delay: 0.2, type: "false" }}
+            transition={{ delay: 0.2, type: 'false' }}
           >
             <h3
               className={classNames(
-                "font-medium text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70",
-                "text-xl mb-4",
-                "sm:text-2xl sm:mb-8"
+                'font-medium text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                'text-xl mb-4',
+                'sm:text-2xl sm:mb-8'
               )}
             >
               Join our closed alpha.
@@ -446,22 +446,22 @@ export function Home() {
             whileInView={{
               opacity: 1,
               scale: 1,
-              rotate: 0,
+              rotate: 0
             }}
-            transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+            transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
           >
-            <RequestAccessButton />
+            <RequestDemoButton />
           </motion.div>
         </div>
       </div>
     </main>
-  );
+  )
 }
 
 const SummarizationPromptCode = () => {
   return (
     <div
-      style={{ perspective: "1000px" }}
+      style={{ perspective: '1000px' }}
       className="overflow-visible absolute left-16 bottom-16 -z-10 scale-50 sm:scale-100"
     >
       <motion.div
@@ -474,7 +474,7 @@ const SummarizationPromptCode = () => {
           rotateX: 5,
           rotateY: 15,
           rotateZ: -1,
-          transformOrigin: "center",
+          transformOrigin: 'center'
         }}
         transition={{ duration: 0.7 }}
       >
@@ -483,17 +483,17 @@ const SummarizationPromptCode = () => {
         </SyntaxHighlighter>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
 const PromptmodelCode = ({ isMobile }) => {
   return (
     <div
-      style={{ perspective: "1000px" }}
+      style={{ perspective: '1000px' }}
       className={classNames(
-        "overflow-visible ",
-        isMobile && "scale-50",
-        !isMobile && "absolute right-16 -bottom-4 -z-10 scale-50 sm:scale-100"
+        'overflow-visible ',
+        isMobile && 'scale-50',
+        !isMobile && 'absolute right-16 -bottom-4 -z-10 scale-50 sm:scale-100'
       )}
     >
       <motion.div
@@ -507,7 +507,7 @@ const PromptmodelCode = ({ isMobile }) => {
           rotateX: isMobile ? 5 : 5,
           rotateY: isMobile ? 15 : -15,
           rotateZ: isMobile ? -1 : 3,
-          transformOrigin: "center",
+          transformOrigin: 'center'
         }}
         transition={{ duration: 0.7 }}
       >
@@ -516,5 +516,5 @@ const PromptmodelCode = ({ isMobile }) => {
         </SyntaxHighlighter>
       </motion.div>
     </div>
-  );
-};
+  )
+}

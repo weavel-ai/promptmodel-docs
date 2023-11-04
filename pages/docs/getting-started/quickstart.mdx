@@ -100,13 +100,25 @@ Write and run your first prompt in the dashboard. You can view the output from t
 
 #### I/O variables syntax
 
-Placeholder for **inputs** can be defined just like writing a python f-string; by using curly braces `{}`.  
-Output format that is currently supported and will be parsed looks like:
+Placeholder for **inputs** can be defined just like writing a python f-string; by using curly braces `{}`.
 
 ```txt
-[[variable start]]
+Extract keywords from given passage:
+{passage}
+```
+
+We provide parsing and automatic type conversion for LLM outputs. Currently supported parsing types are:
+
+- Square brackets
+- Double square brackets
+- Html
+
+Here is an example format for double square brackets:
+
+```txt
+[[variable type=str]]
 output value here will be parsed correctly
-[[variable end]]
+[[variable]]
 ```
 
 More output formats will be supported very soon. Synatx highlighting for prompts is also coming soon.
