@@ -1,8 +1,11 @@
 # Methods
 
-`PromptModel` have not only `run` and `arun` methods, but also useful methods for parsing outputs.
+- `get_prompts` fetches published prompts from a specific `PromptModel`.
+- `run`, `stream` fetches published prompts, runs LLM API call locally, logs data to the cloud, and returns the result.
+- `run_and_parse`, `stream_and_parse` fetches published prompts, runs LLM API call locally, parses the result, logs data, then returns the parsed result.
+- Asynchronous methods like `arun`, `astream`, `arun_and_parse`, `astream_and_parse` are also available.
 
-## How to use
+## Error Handling
 
 All methods of `PromptModel` do not raise error.
 
@@ -128,7 +131,7 @@ for chunk in res:
 	# {'score': 9}
 ```
 
-## Output Format
+## Response Format
 
 All of **PromptModel**'s methods except for `get_prompts` return either an `LLMResponse` or `LLMStreamResponse` object.
 
