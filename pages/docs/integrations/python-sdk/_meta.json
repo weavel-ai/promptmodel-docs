@@ -1,4 +1,5 @@
 {
-  "client": "Client",
-  "promptmodel": "PromptModel"
+  "promptmodel": "PromptModel",
+  "devapp": "DevApp",
+  "devclient" : "DevClient"
 }

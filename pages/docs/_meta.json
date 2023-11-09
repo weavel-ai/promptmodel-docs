@@ -5,6 +5,7 @@
   },
   "getting-started": "Getting Started",
   "integrations": "Integrations",
+  "webpage" : "Webpage",
   "migration": {
     "title": "Migrating Prompts",
     "theme": { "breadcrumb": false }
