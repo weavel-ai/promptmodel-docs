@@ -22,4 +22,4 @@
 
 ## Documentation
 
-You can find our full documentation [here](https://www.promptmodel.run/docs/intro).
+You can find our full documentation [here](https://www.promptmodel.run/docs).
