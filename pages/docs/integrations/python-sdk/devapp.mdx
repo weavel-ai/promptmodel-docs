@@ -1,0 +1,48 @@
+# DevApp
+
+Promptmodel **DevApp** connects your codebase to the development dashboard.
+
+## Usage
+
+Running `prompt init` will automatically create a `promptmodel_dev.py` in your project. This file is used to register your functions and samples to the development dashboard.
+
+```bash
+prompt init
+```
+
+```python filename="promptmodel_dev.py"
+"""This single file is needed to build the DevApp development dashboard."""
+
+from promptmodel import DevApp
+
+# Example imports
+# from <dirname> import < objectname>
+
+app = DevApp()
+
+# Example usage
+# This is needed to integrate your codebase with the prompt engineering dashboard
+# app.include_client(< objectname>)
+```
+
+## Methods
+
+### register_function
+
+| Parameter |                   Type                   | Required | Description                                                                                       |
+| :-------- | :--------------------------------------: | -------: | ------------------------------------------------------------------------------------------------- |
+| schema    | Optional[Dict[str, Any], FunctionSchema] |      Yes | Schema of the function to be passed on to function calls.                                         |
+| function  |                 Callable                 |      Yes | Function to be registered and used for test runs (function calls) from the development dashboard. |
+
+### register_sample
+
+| Parameter |      Type      | Required | Description                                          |
+| :-------- | :------------: | -------: | ---------------------------------------------------- |
+| name      |      str       |      Yes | Name of the sample to be displayed in the dashboard. |
+| content   | Dict[str, Any] |      Yes | Dictonary of an input sample.                        |
+
+### include_client
+
+| Parameter |   Type    | Required | Description                                       |
+| :-------- | :-------: | -------: | ------------------------------------------------- |
+| client    | DevClient |      Yes | A DevClient instance to include in the dashboard. |

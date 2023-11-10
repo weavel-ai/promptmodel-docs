@@ -19,7 +19,7 @@
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
     "@amplitude/analytics-browser": "^2.3.3",
-    "@phosphor-icons/react": "^2.0.13",
+    "@phosphor-icons/react": "^2.0.14",
     "@splinetool/react-spline": "^2.2.6",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
@@ -34,12 +34,12 @@
     "react-responsive": "^9.0.2",
     "react-syntax-highlighter": "^15.5.0",
     "tailwind-scrollbar-hide": "^1.1.7",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "@types/node": "18.11.10",
     "@types/react": "18.2.28",
-    "daisyui": "^3.9.3",
-    "typescript": "^4.9.3"
+    "daisyui": "^3.9.4",
+    "typescript": "^4.9.5"
   }
 }

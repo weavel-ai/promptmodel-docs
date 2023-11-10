@@ -1,0 +1,143 @@
+import { Callout } from 'nextra/components'
+
+# Quickstart (from web dashboard) 🚀
+
+Engineer prompts and integrate them into your project in less than 5 minutes.
+
+> We are currently in closed alpha. If you would like to try out Promptmodel, visit [here](https://app.promptmodel.run).  
+> You can also request a personal demo [here](https://calendly.com/sounhochung/30min).
+
+## Create your first project
+
+First sign up, create an organization, then create your first project.
+
+{/* ![Make Project](./img/make_project.gif) */}
+
+## Prompt Engineering
+
+In this tutorial, we will walk you through the basic usage of our service with `PromptModel`.
+
+> If you are interested in `ChatModel` (for chatbot), contact us on [discord](https://discord.gg/dVTtyEU4).
+> {/* please check [ChatModel Editor](/docs/webpage/development_dashboard/chatmodel) */}
+
+### Create your first PromptModel
+
+Create your first PromptModel with an appropriate name.
+
+{/* ![Make First PromptModel in Node Code](/demos/make_promptmodel_no_code.gif) */}
+
+### Crafting your first prompt
+
+Write and run your first prompt in the dashboard. You can view the output from the panel below.
+
+{/* ![First prompt in Web](/demos/engineering_no_code.gif) */}
+
+#### I/O variables syntax
+
+Placeholder for **inputs** can be defined just like writing a python f-string; by using curly braces `{}`.
+
+```txt
+Extract keywords from given passage:
+{passage}
+```
+
+We provide parsing and automatic type conversion for LLM outputs. Currently supported parsing types are:
+
+- Square brackets
+- Double square brackets
+- Html
+
+Here is an example format for double square brackets:
+
+```txt
+[[variable type=str]]
+output value here will be parsed correctly
+[[variable]]
+```
+
+More output formats will be supported very soon. Synatx highlighting for prompts is also coming soon.
+
+### Prompt engineering workflow
+
+You can create new versions of your promptmodels by clicking the **Create Variant** button in the dashboard.
+
+![Creating variant demo](../img/promptmodel-demo-variant.gif)
+
+You can view differences with the previous version while writing your new version, which is a great way to keep track of your changes.
+
+A new prompt version is created every time you click the **Run** button in the dashboard. Each version is automatically categorized into either `broken` or `working`, depending on whether the run was successful or not. You can evaulate the output, then update the category of the best prompt versions to `candidate`.
+
+### Pushing prompt versions to deployment
+
+Once you have at least one candidate prompt version, you can push the candidates to deployment by clicking the **Push to deployment** button in the dashboard. This will upload the candidate versions to the cloud, and make them available for use in deployment.
+
+You can view and manage your deployed prompt versions in the deployment dashboard.
+
+![Deployment dashboard - versions](../img/promptmodel-deployment-versions.png)
+
+LLM token usage, latency, costs will be tracked for each promptmodel run. You can view these metrics in the deployment dashboard. _(coming soon)_
+
+<Callout type="info" emoji="✨">
+  Metric visualization & analytics based on human & LLM evaluation is also
+  coming soon.
+</Callout>
+
+## Prompt Management
+
+You can use the deployment dashboard to manage your deployed prompts.
+
+Here you can publish specific prompt versions for use in deployment, create A/B tests _(coming soon)_, and view prompt usage statistics.
+
+![Deployment dashboard - publishing](../img/promptmodel-deployment-publish.png)
+
+## Integate with your code
+
+You can use the deployed prompts in your code by using the our python SDK.
+
+### Installation
+
+To install `promptmodel` run:
+
+```bash copy
+pip install promptmodel
+```
+
+### Add your API key
+
+First, you should add your API key to your environment variables.
+
+You can get your API key for your project in the Project Settings page.
+
+{/* ![Project Settings](../img/promptmodel-project-settings.png) */}
+
+Copy your project API key and add it to your environment variables.
+
+```bash copy filename=".env"
+PROMPTMODEL_API_KEY=YOUR_API_KEY
+```
+
+### Use the SDK
+
+You can use the SDK to run your prompts in your code.  
+You just call `init()` and write down the name of your prompts.
+
+```python filename="your_code.py"
+import promptmodel
+from promptmodel import PromptModel
+
+promptmodel.init()
+
+res = PromptModel("say_hi").run(
+	inputs={},
+	function_list={}
+)
+print(res.raw_output)
+# Example Output : "hi"
+```
+
+If you change your deployment prompt version in the **Deployment Dashboard**, Your code will automatically use that version.
+
+### Check Logs
+
+Logs from your LLM usages are automatically collected and stored in the cloud.  
+You can view the logs in the **Deployment Dashboard**.
