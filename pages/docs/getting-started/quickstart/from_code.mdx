@@ -1,8 +1,8 @@
 import { Callout } from 'nextra/components'
 
-# Quickstart (with code) 🚀
+# Quickstart (from your IDE) 🚀
 
-Integrate **Promptmodel** into your project in less than 5 minutes.
+Integrate **Promptmodel**'s development dashboard into your codebase in less than 5 minutes.
 
 > We are currently in closed alpha. If you would like to try out Promptmodel, visit [here](https://app.promptmodel.run).
 > You can also request a personal demo [here](https://calendly.com/sounhochung/30min).
@@ -19,21 +19,17 @@ pip install promptmodel
 
 ### Add your API key
 
-First, you should add your API key to your environment variables.
-
-You can get your API key for your project in the Project Settings page.
-
+First, you should add your API key to your environment variables. You can get your project's API key in the Project Settings page.  
+Copy your project API key and add it to your environment variables.
 {/* ![Project Settings](../img/promptmodel-project-settings.png) */}
 
-Copy your project API key and add it to your environment variables.
-
-```bash copy filename=".env"
+```bash filename=".env"
 PROMPTMODEL_API_KEY=YOUR_API_KEY
 ```
 
 ### CLI Login
 
-```bash copy
+```bash
 prompt login
 ```
 
@@ -43,13 +39,13 @@ You will be redirected to the Promptmodel website for CLI login. After logging i
 
 ### Initialization
 
-```bash copy
+```bash
 prompt init
 ```
 
 This command will generate the following file in the current directory. This file will be used as an entry point for the prompt engineering dashboard.
 
-```python filename="promptmodel_dev.py" copy
+```python filename="promptmodel_dev.py"
 """This single file is needed to build the DevApp development dashboard."""
 
 from promptmodel import DevApp
@@ -61,13 +57,13 @@ app = DevApp()
 
 # Example usage
 # This is needed to integrate your codebase with the prompt engineering dashboard
-# app.include(< objectname>)
+# app.include_client(< objectname>)
 
 ```
 
-For Now, you can open Web Prompt Editor by running `prompt dev` command.
+Now you can open the development dashboard by running `prompt dev` command.
 
-```bash copy
+```bash
 prompt dev
 ```
 
@@ -75,7 +71,7 @@ prompt dev
 
 ## Code Integration
 
-You can connect with your code with Web Prompt Editor simply create `DevClient` instance in your code and import them in `promptmodel_dev.py`.
+You can connect with your codebase with the development dashboard by simply adding a `DevClient` instance in your code and including it to your `DevApp`.
 
 ```python filename="your_code.py"
 from promptmodel import DevClient
@@ -86,28 +82,29 @@ client = DevClient() # DevClient works as a bridge between your code and Web Pro
 ```python filename="promptmodel_dev.py"
 ...
 from your_code import client as client_1
-app.include(client_1) # with this, our DevApp (Web Prompt Editor) can read your code in real-time
+
+app = DevApp()
+
+app.include_client(client_1) # with this, our DevApp (Web Prompt Editor) can read your code in real-time
 ...
 ```
 
-With this setting, our web editor is connected your code and read your codes in real-time.
-> This feature runs by **websocket connection** and data from your code does not saved in our server.
+Now our web editor is connected your code and synchronized in real-time.
 
-If you add some usage of `PromptModel`, `ChatModel` or `ChatAgent` in your code, they will be automatically detected and displayed in the dashboard.
+> We make this possible by utilizing a **websocket connection**. Your private data and codebase is **NOT** saved in our server.
 
-{/* add code directly in `promptmodel_dev.py`, or import your modules containing `promptmodel` code.
-After importing your modules, you must include them in the `app` object. This is needed to integrate them with the development dashboard.
+{/* ![Code Integration](/demos/code_integration.gif) */}
 
-> PromptModel manages your prompts on the cloud, so you can free your code from `.txt` files or raw strings. */}
+If you use `PromptModel`, `ChatModel` or `ChatAgent` in your code, you should add a `DevClient` object in that file so that they will be automatically detected and displayed in the dashboard.
+
+If they are used inside a function, you must wrap the function with `@client.register` decorator.
 
 ```python filename="your_code.py"
-import promptmodel
-promptmodel.init() # This function is needed to start promptmodel. You should call it once in your entry point.
 from promptmodel import DevClient, PromptModel
 
 client = DevClient()
 
-# You can simply using prompts with cloud
+# You can simply fetch published prompts from the cloud
 extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
 
 # Or run PromptModel directly
@@ -118,20 +115,20 @@ def test():
     # Example ouptut : {"service_name" : "make_account", "arguments" : "[name, email, password]"}
 ```
 
-Web Editor will automatically detect your code change and show `Promptmodel`'s instances in the dashboard.  
-With this feature, you can just develop your LLM service in your IDE and engineering prompt for it in the Web Editor without any additional work.
+The development dashboard will automatically detect your code changes and show `PromptModel` instances in the dashboard.  
+Now you can easily add PromptModels in your IDE, and write prompts for them on our web editor without any additional work.
 
-> **Promptmodel** saved your prompt in local sqlite3 DB at this moment.   
-> You don't need to save prompts in `txt` files.  
-> You can save them in the cloud in later step.  
+> While working on the codebase-connected development dashboard, we save your prompts in your local sqlite3 database.  
+> You can deploy your best prompts onto the cloud at a later step.  
+> You don't need to add your prompts in your code or as `txt` files anymore.
 
 ![Prompt Engineering Dashboard](../img/promptmodel-demo-dev-init.gif)
 
 ## Prompt Engineering
 
-In quickstart, we will show the basic usage of our service with class `PromptModel`.  
+In this tutorial, we will walk you through the basic usage of our service with `PromptModel`.
 
-> If you are interested in `Chatmodel` (for chatbot) or `ChatAgent` (for agent),  
+> If you are interested in `ChatModel` (for chatbot) or `ChatAgent` (for custom agent),  
 > please check [Chatmodel Editor](/docs/webpage/development_dashboard/chatmodel) or [ChatAgent Editor](/docs/webpage/development_dashboard/chatagent) page.
 
 ### Crafting your first prompt
@@ -253,4 +250,4 @@ Here you can publish specific prompt versions for use in deployment, create A/B 
 ### Check Logs
 
 Logs from your LLM usages are automatically collected and stored in the cloud.  
-You can view the logs in the **Deployment Dashboard**.  
+You can view the logs in the **Deployment Dashboard**.

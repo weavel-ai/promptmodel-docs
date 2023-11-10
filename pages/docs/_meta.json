@@ -1,13 +1,12 @@
 {
-  "intro": {
-    "title": "Introduction",
-    "theme": { "breadcrumb": false }
-  },
   "getting-started": "Getting Started",
   "integrations": "Integrations",
-  "webpage" : "Webpage",
+  "web-dashboard": "Web Dashboard",
   "migration": {
     "title": "Migrating Prompts",
     "theme": { "breadcrumb": false }
+  },
+  "index": {
+    "display": "hidden"
   }
 }
