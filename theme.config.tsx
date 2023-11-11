@@ -18,7 +18,7 @@ const config: DocsThemeConfig = {
     )
   },
   chat: {
-    link: 'https://discord.gg/dVTtyEU4'
+    link: 'https://discord.gg/2Y36M36tZf'
   },
   head: (
     <>
