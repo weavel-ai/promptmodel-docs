@@ -1,6 +1,8 @@
 {
+  "*": {
+    "type": "page"
+  },
   "index": {
-    "type": "page",
     "title": "Promptmodel",
     "display": "hidden",
     "theme": {
@@ -8,7 +10,20 @@
     }
   },
   "docs": {
-    "type": "page",
     "title": "Docs"
+  },
+  "demo": {
+    "type": "menu",
+    "title": "Demo",
+    "items": {
+      "overview": {
+        "title": "Overview (2-min)",
+        "href": "/docs/overview"
+      },
+      "schedule-demo": {
+        "title": "Schedule Demo",
+        "href": "/docs/schedule-demo"
+      }
+    }
   }
 }

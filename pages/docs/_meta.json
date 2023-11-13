@@ -1,11 +1,18 @@
 {
-  "getting-started": "Getting Started",
-  "integrations": "Integrations",
-  "web-dashboard": "Web Dashboard",
-  "migration": {
-    "title": "Migrating Prompts",
-    "theme": { "breadcrumb": false }
+  "introduction": "Introduction",
+  "overview": "Overview (2-min vid)",
+  "schedule-demo": "Schedule Demo",
+  "-- Getting Started": {
+    "type": "separator",
+    "title": "Getting Started"
   },
+  "quickstart": "Quickstart 🚀",
+  "integrations": "Integrations",
+  "-- Features": {
+    "type": "separator",
+    "title": "Features"
+  },
+  "web-dashboard": "Web Dashboard",
   "index": {
     "display": "hidden"
   }

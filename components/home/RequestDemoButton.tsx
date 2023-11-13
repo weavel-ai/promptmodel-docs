@@ -23,8 +23,7 @@ export const RequestDemoButton = ({ small = false }: { small?: boolean }) => {
 
   return (
     <Link
-      href="https://calendly.com/sounhochung/30min"
-      target="_blank"
+      href="/docs/schedule-demo"
       className={classNames(
         'btn btn-sm rounded-lg normal-case border-primary border-2 hover:border-none',
         'bg-transparent hover:bg-gradient-to-r hover:from-violet-500 hover:to-primary',
