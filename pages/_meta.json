@@ -17,8 +17,8 @@
     "title": "Demo",
     "items": {
       "overview": {
-        "title": "Overview (2-min)",
-        "href": "/docs/overview"
+        "title": "Tutorials (video)",
+        "href": "/docs/tutorials"
       },
       "schedule-demo": {
         "title": "Schedule Demo",

@@ -1,4 +1,5 @@
 {
+  "cli": "CLI",
   "python-sdk": "Python SDK",
   "frameworks": "Frameworks"
 }

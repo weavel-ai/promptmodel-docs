@@ -1,8 +1,8 @@
-export function TutorialVideoLoom() {
+export function TutorialVideoLoom({ src }: { src: string }) {
   return (
     <div style={{ position: 'relative', paddingBottom: '62.5%', height: 0 }}>
       <iframe
-        src="https://www.loom.com/embed/d0051bc0afc94860aebfbaca1bcb9c2f?sid=b7e55bb6-7f9b-4390-bb32-d567e8510358"
+        src={src}
         title="Tutorial Video"
         style={{
           position: 'absolute',
