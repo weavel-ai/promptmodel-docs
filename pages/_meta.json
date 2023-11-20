@@ -12,6 +12,12 @@
   "docs": {
     "title": "Docs"
   },
+  "blog": {
+    "title": "Blog",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "demo": {
     "type": "menu",
     "title": "Demo",
