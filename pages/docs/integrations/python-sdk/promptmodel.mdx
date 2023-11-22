@@ -29,11 +29,12 @@ Instead, `error` and `error_log` attributes will be set if error occurs.
 If you use LLM API call with error handling, your previous code will be like this.
 
 ```python
+client = OpenAI()
 max_retry = 3
 trial = 0
 while trial < max_retry:
 	try:
-		res = openai.ChatCompletion.create(**kwargs)
+		res = client.chat.completion.create(**kwargs)
 		parsed_outputs = parser(res)
 		break
 	except Exception as e:
@@ -162,9 +163,10 @@ Here is the exact output dictionary and types of `LLMResponse`.
 				'finish_reason': Optional[str],
 				'index': int,
 				'message': {
-					'role': str,
-					'content': str,
-					'function_call' : Optional[Dict[str, Any]],
+					'role': Optional[str],
+					'content': Optional[str],
+					'function_call' : Optional[FunctionCall],
+					'tool_calls' : Optional[ChatCompletionToolCall]
 				}
 			}
 		],
@@ -175,25 +177,27 @@ Here is the exact output dictionary and types of `LLMResponse`.
 			'completion_tokens': int,
 			'total_tokens': int
 		},
-		'response_ms' : float
+		'_response_ms' : float
 	} or None,
 	'raw_output' : Optional[str],
-	'parsed_outputs' : Optional[Dict[str, str]],
-	'function_call' : Optional[Dict[str, Any]],
+	'parsed_outputs' : Optional[Dict[str, Any]],
+	'function_call' : Optional[FunctionCall],
+	'tool_calls' : Optional[ChatCompletionToolCall]
 	'error' : Optional[bool],
 	'error_log' : Optional[str]
 }
 ```
 
 The format of `LLMResponse.api_response` is equal to the format of OpenAI API response.
+
 For example, the code blocks below will return the same output.
 
 ```python
-import openai
+from openai import OpenAI
 from promptmodel import PromptModel
+client = OpenAI()
 
-
-openai_response = openai.ChatCompletion.create(
+openai_response = client.chat.completion.create(
 	model="gpt-3.5-turbo",
 	messages=[{"role" : "system", "content" : ""}, {"role" : "user", "content" : "Say Hello"}]
 )
@@ -234,11 +238,18 @@ Here is the exact json output and type of `LLMStreamResponse`.
 			{
 				'finish_reason': Optional[str],
 				'index': int,
+				'delta': {
+					'role': Optional[str],
+					'content': Optional[str],
+					'function_call' : Optional[ChoiceDeltaFunctionCall],
+					'tool_calls' : Optional[ChoiceDeltaToolCall]
+				},
 				'message': {
-					'role': str,
-					'content': str,
-					'function_call' : Optional[Dict[str, Any]],
-				}
+					'role': Optional[str],
+					'content': Optional[str],
+					'function_call' : Optional[FunctionCall],
+					'tool_calls' : Optional[ChatCompletionToolCall]
+				},
 			}
 		],
 		'created': str,
@@ -247,26 +258,31 @@ Here is the exact json output and type of `LLMStreamResponse`.
 			'prompt_tokens': int,
 			'completion_tokens': int,
 			'total_tokens': int
-		},
-		'response_ms' : float
+		} or None,
+		'_response_ms' : float
 	} or None,
 	'raw_output' : Optional[str],
 	'parsed_outputs' : Optional[Dict[str, str]],
-	'function_call' : Optional[Dict[str, Any]],
+	'function_call' : Optional[ChoiceDeltaFunctionCall],
+	'tool_calls' : Optional[ChoiceDeltaToolCall],
 	'error' : Optional[bool],
 	'error_log' : Optional[str]
 }
 ```
 
 The format of `LLMStreamResponse.api_response` is equal to the format of OpenAI API response.
+
+However, the last chunk of `LLMStreamResponse.api_response.choices[0]` has `message` instead of `delta`.
+Every `delta` are converted to `message` in the last chunk.
+
 For example, the code blocks below will return the same output.
 
 ```python
-import openai
+from openai import OpenAI
 from promptmodel import PromptModel
+client = OpenAI()
 
-
-openai_response = openai.ChatCompletion.create(
+openai_response = client.chat.completion.create(
 	model="gpt-3.5-turbo",
 	messages=[{"role" : "system", "content" : ""}, {"role" : "user", "content" : "Say Hello"}],
 	stream=True
