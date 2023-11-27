@@ -14,6 +14,7 @@ import Spline from '@splinetool/react-spline'
 import { RequestDemoButton } from './RequestDemoButton'
 import { CheckFat } from '@phosphor-icons/react'
 import { logEvent } from '../../services/amplitude'
+import { Background } from '../Background'
 
 const SUMMARIZATION_PROMPT = `
 SUMMARIZATION_PROMPT = """
@@ -82,7 +83,7 @@ export function Home() {
         )}
         ref={containerRef}
       >
-        <div className="!max-h-[100vh] w-full h-full absolute top-0 bg-gradient-to-b from-secondary/20 to-transparent" />
+        <Background />
         <div
           className={classNames(
             'flex flex-col items-center justify-start h-max w-full max-w-[100rem]'

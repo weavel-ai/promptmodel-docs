@@ -1,7 +1,6 @@
 import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
-import { MainContentWrapper } from './components/MainContentWrapper'
 import { Logo } from './components/Logo'
 import { RequestDemoButton } from './components/home/RequestDemoButton'
 
@@ -33,7 +32,6 @@ const config: DocsThemeConfig = {
   feedback: {
     content: null
   },
-  main: MainContentWrapper,
   // docsRepositoryBase: "https://github.com/weavel-ai/promptmodel",
   footer: {
     text: 'PromptModel © 2023 by Weavel'

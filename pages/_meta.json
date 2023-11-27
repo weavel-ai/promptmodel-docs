@@ -15,7 +15,12 @@
   "blog": {
     "title": "Blog",
     "theme": {
-      "layout": "full"
+      "layout": "default",
+      "toc": false,
+      "sidebar": false,
+      "pagination": true,
+      "typesetting": "article",
+      "breadcrumb": false
     }
   },
   "demo": {
