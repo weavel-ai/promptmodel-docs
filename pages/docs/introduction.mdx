@@ -1,0 +1,95 @@
+import { Cards, Card } from 'nextra/components'
+
+# Introduction
+
+**PromptModel** is a prompt versioning framework that offers the following:
+
+- [x] **Versioning** for every prompt that you run so that you never lose track of your experiments.
+- [x] **Web editor** designed for prompt engineering with difference visualization & built-in version tracking.
+- [x] **SDK** (Python) to integrate with your existing codebase and connect the web editor with your code.
+- [x] **Deployment dashboard** for product-level evaluation & prompt management (A/B tests coming soon).
+
+We are currently in **closed alpha**. You can try us out [here](https://app.promptmodel.run).  
+You can request a personal demo [here](./schedule-demo.mdx).  
+Stay updated by following us on [Discord](https://discord.gg/2Y36M36tZf).
+
+## Getting Started
+
+We recommend following our [Quickstart](./quickstart) guide to get started with Promptmodel.
+
+## Web dashboard
+
+You can engineer your prompts and create new prompt versions in our **development dashboard**.  
+You can view & evaluate production-level logs and manage your published prompt versions in our **deployment dashboard**.
+
+### Development Dashboard
+
+We offer two convenient methods for crafting prompts on our development dashboard.  
+You have the option to begin directly in the web editor, which utilizes our cloud database, or alternatively, you can integrate your codebase with our SDK. This integration allows you to open the web editor via our Command Line Interface (CLI) and synchronizes the web editor with your codebase.
+
+| Feature                         |   Without IDE    | With IDE connection |
+| :------------------------------ | :--------------: | :-----------------: |
+| Prompt engineering editor       |        ✅        |         ✅          |
+| Version control                 |        ✅        |         ✅          |
+| Difference visualization        |        ✅        |         ✅          |
+| Metrics logging                 |        ✅        |         ✅          |
+| Input sample support            | ✅ (coming soon) |         ✅          |
+| Function call support           |        ❌        |         ✅          |
+| Realtime code synchronization   |        ❌        |         ✅          |
+| _ChatAgent_ development support |        ❌        |  ✅ (coming soon)   |
+| Storage                         |      Cloud       |        Local        |
+| PromptModel creation            |     From web     |      From code      |
+| Opening the dev dashboard       |     From web     |      From CLI       |
+
+### Deployment Dashboard
+
+The deployment dashboard is where you can manage your prompt versions and view production-level logs.
+We support (or will support) the following features:
+
+- [x] Logging
+- [x] Metric visualization (latency, token usage, costs, etc.)
+- [x] Publishted prompt version control
+- [ ] A/B tests
+- [ ] Evaluation
+- [ ] Demo chatbot UI for testing (for ChatModel)
+
+<Cards>
+  <Card title="Development Dashboard" href="/docs/web-dashboard/development" />
+  <Card title="Deployment Dashboard" href="/docs/web-dashboard/deployment" />
+</Cards>
+
+## SDK Components
+
+Promptmodel have 3 main components to build LLM services, and 2 additional components to integrate your codebase with Web Prompt Editor.
+
+### LLM Calls & Logging
+
+[PromptModel](/docs/integrations/python-sdk/promptmodel)  
+**PromptModel** is for a combination of prompts and an LLM model that works as a semantic function.
+
+- [x] Version control
+- [x] Logging
+
+[ChatModel](/docs/integrations/python-sdk/chatmodel)  
+**ChatModel** is for chatbots with a single system prompt as a personality.
+
+- [x] Version control
+- [x] Logging
+
+[ChatAgent (coming soon)]()  
+**ChatAgent** is a utility for logging data from any custom agent architecture.
+
+- [x] Logging
+
+### Integration with Development Dashboard
+
+[DevApp]() and [DevClient]()  
+**DevApp** connects your local codebase with the development dashboard via websockets.  
+**DevClient** registers local _promptmodel_ usage to your DevApp.
+
+You can use our **CLI** to generate an initial file with DevApp, and create & open a new development environment.
+You can utilize the codebase-synchronized development dashboard to engineer function call usage and register input samples for your prompts.
+
+{/* ## Examples */}
+
+{/* coming soon */}

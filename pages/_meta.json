@@ -1,8 +1,40 @@
 {
-  "getting-started": "Getting Started",
-  "migration": {
-    "title:": "Migrating prompts",
-    "theme": { "breadcrumb": false }
+  "*": {
+    "type": "page"
   },
-  "prompt-engineering": "Prompt Engineering"
+  "index": {
+    "title": "Promptmodel",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "title": "Docs"
+  },
+  "blog": {
+    "title": "Blog",
+    "theme": {
+      "layout": "default",
+      "toc": false,
+      "sidebar": false,
+      "pagination": true,
+      "typesetting": "article",
+      "breadcrumb": false
+    }
+  },
+  "demo": {
+    "type": "menu",
+    "title": "Demo",
+    "items": {
+      "overview": {
+        "title": "Tutorials (video)",
+        "href": "/docs/tutorials"
+      },
+      "schedule-demo": {
+        "title": "Schedule Demo",
+        "href": "/docs/schedule-demo"
+      }
+    }
+  }
 }

@@ -1,0 +1,7 @@
+{
+  "promptmodel": "PromptModel",
+  "chatmodel": "ChatModel",
+  "chatagent": "ChatAgent",
+  "devapp": "DevApp",
+  "devclient": "DevClient"
+}

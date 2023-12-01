@@ -1,0 +1,26 @@
+/* make nav more blurry */
+.nextra-nav-container-blur {
+  background: transparent !important;
+}
+
+:is(
+    html[class~="dark"] .nextra-nav-container-blur,
+    html[class~="dark"] .nextra-nav-container-blur
+  ) {
+  background: transparent !important;
+}
+
+/* do not show edit/contact menu below the toc */
+.nextra-toc > div > :last-child {
+  display: none;
+}
+
+/* Fix logo overflowing */
+.nextra-nav-container > nav > a:first-child {
+  flex-shrink: 0;
+}
+
+/* make footer transparent */
+footer {
+  background: transparent !important;
+}

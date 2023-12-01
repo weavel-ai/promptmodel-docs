@@ -1,0 +1,19 @@
+{
+  "introduction": "Introduction",
+  "tutorials": "Tutorials (video)",
+  "schedule-demo": "Schedule Demo",
+  "-- Getting Started": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "quickstart": "Quickstart 🚀",
+  "integrations": "Integrations",
+  "-- Features": {
+    "type": "separator",
+    "title": "Features"
+  },
+  "web-dashboard": "Web Dashboard",
+  "index": {
+    "display": "hidden"
+  }
+}
