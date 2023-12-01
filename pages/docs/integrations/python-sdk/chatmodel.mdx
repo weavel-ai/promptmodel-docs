@@ -1,3 +1,184 @@
+import { Cards, Card } from 'nextra/components'
+
 # ChatModel
 
-> Under construction...
+A **ChatModel** support easiest way to create a chatbot with a single system prompt.
+
+It works like OpenAI [Assistant API](https://platform.openai.com/docs/assistants/overview), but more easy to use.
+
+It have its own **Chat Session** (OpenAI called it 'Thread') and you can talk with chatbot in this session infinitely.
+
+
+
+
+We use [LiteLLM](https://github.com/BerriAI/litellm) to integrate LLMs, but currently support only cloud based LLM providers. We will integrate more models, and even allow you to use your own models in the near future.
+
+> For Korean users, we integrate [Hyper Clova X](https://clova.ai/hyperclova) into LiteLLM and our service.
+
+**ChatModel**'s methods `run` and `arun` return either an `LLMResponse` or `LLMStreamResponse` object same as [**PromptModel**](/docs/integrations/python-sdk/promptmodel).
+
+## Methods
+
+- `get_prompts` fetches published prompts from a specific `ChatModel` by name.
+- `get_messages` fetches chat logs from sessions by session_uuid.
+- `add_messages` add messages to the session on the cloud by session uuid.
+- `run` triggers LLM to respond to messages in the session.
+- `arun` triggers LLM to respond to messages in the session asynchronously.
+
+### Error Handling
+
+`run` and `arun` do not raise error.
+
+Instead, `error` and `error_log` attributes will be set if error occurs.
+
+If you use OpenAI Assistant API with error handling, your previous code will be like this.
+
+```python
+client = OpenAI()
+max_retry = 3
+trial = 0
+while trial < max_retry:
+	try:
+		message = client.beta.threads.messages.create(
+			thread_id=thread.id,
+			role="user",
+			content="..."
+		)
+		run = client.beta.threads.runs.create(
+			thread_id=thread.id,
+			assistant_id=assistant.id,
+		)
+		while True:
+			run = client.beta.threads.runs.retrieve(
+				thread_id=thread.id,
+				run_id=run.id
+			)
+			if run.status == "completed":
+				break
+			time.sleep(5)
+
+		messages = client.beta.threads.messages.list(
+			thread_id=thread.id
+		)
+		break
+	except Exception as e:
+		print(e)
+		trial += 1
+print(messages[-1].content)
+```
+
+If you use `ChatModel`, you can handle error like this.
+
+```python
+max_retry = 3
+trial = 0
+session = ChatModel("example", session_uuid)
+while trial < max_retry:
+	session.add_messages([{"role": "user", "content": "..."}])
+	res = session.run()
+	if res.error:
+		print(res.error_log)
+		trial += 1
+		continue
+	break
+print(res.content)
+```
+
+### get_prompts
+
+`get_prompts()` is a method for fetching published prompts from a specific `ChatModel`.
+
+It will return a system prompt as a list of dict.
+
+```python
+prompts = ChatModel("simple_assistant").get_prompts()
+print(prompts)
+# [{"role": "system", "content": "You are a helpful assistant."}]
+```
+
+### get_messages
+
+`get_messages()` is a method for fetching chat logs from sessions by session_uuid.
+
+```python
+chat_logs = ChatModel("simple_assistant", session_uuid).get_messages()
+print(chat_logs)
+# [
+#	{"role": "system", "content": "You are a helpful assistant."},
+#   {"role": "user", "content": "Hello, I'm a user."},
+#   {"role": "assistnat", "content": "Hello, I'm a assistant."}
+# ]
+```
+
+### add_messages
+
+`add_messages()` is a method for adding messages to the session on the cloud.
+
+You can add Any number of messages, includes user messages or function response messages.
+
+> It works like OpenAI Assistant API's `messages.create` method.
+
+```python
+session = ChatModel("simple_assistant", session_uuid)
+session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
+```
+
+### run
+
+After you add messages to the session, you can trigger LLM to respond to messages in the session by `run()` method.
+
+It works like OpenAI Assistant API's `runs.create` method, but it directly returns the response.
+
+```python
+session = ChatModel("simple_assistant")
+session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
+res = session.run()
+print(res.content)
+# Hello, I'm a assistant.
+```
+
+#### stream
+if you want to stream response, set `stream=True` in `run()` method.
+
+```python
+session = ChatModel("simple_assistant")
+session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
+res = session.run(stream=True)
+for r in res:
+	print(r.content)
+# Hello, 
+# I'm
+# a
+# assistant.
+```
+
+#### function call
+You can give functions (or tools) to the LLM by `functions` argument.
+
+```python
+session = ChatModel("simple_assistant")
+session.add_messages([{"role": "user", "content": "What's the weather in Boston?"}])
+res = session.run(functions=[get_weather_function])
+print(res.function_call)
+# {"name": "get_weather", "args": {"location": "Boston"}}
+```
+
+After you got the function call, you can add function response as messages to the session and run again.
+
+```python
+session.add_messages([{"role": "function", "content" : "13 degrees celsius"}])
+res = session.run()
+print(res.content)
+# It's 13 degrees celsius in Boston.
+```
+
+#### Asynchronous
+If you want to run LLM asynchronously, use `arun()` method.
+
+```python
+session = ChatModel("simple_assistant")
+session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
+res = await session.arun()
+print(res.content)
+# Hello, I'm a assistant.
+```
