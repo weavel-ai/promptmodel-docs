@@ -11,38 +11,10 @@ import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import Link from 'next/link'
 import { useTheme } from 'nextra-theme-docs'
 import Spline from '@splinetool/react-spline'
-import { RequestDemoButton } from './RequestDemoButton'
+import { GetStartedButton } from '@/components/buttons/GetStartedButton'
 import { CheckFat } from '@phosphor-icons/react'
 import { logEvent } from '../../services/amplitude'
 import { Background } from '../Background'
-
-const SUMMARIZATION_PROMPT = `
-SUMMARIZATION_PROMPT = """
-You are required to generate title and summary using given content and follow the provided output format.
-Content:
-{content}
-Output format:
-[Title start]
-...
-[Title end]
-[Summary start]
-...
-[Summary end]"""`
-
-const PROMPTMODEL_CODE = `
-from promptmodel import Client, PromptModel
- 
-client = Client()
- 
-# You can simply fetch prompts
-extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
- 
-# Or use powerful generation utils of PromptModel
-@client.register
-def summary():
-    response = PromptModel("summary").generate({})
-    return response
-`
 
 export function Home() {
   const [isUploading, setIsUploading] = useState(false)
@@ -112,11 +84,13 @@ export function Home() {
             >
               <p
                 className={classNames(
-                  'text-4xl font-bold text-base-content text-center',
+                  'text-transparent bg-clip-text bg-gradient-to-b from-base-content/80 from-20% to-base-content/95 backdrop-blur-md rounded-box',
+                  'text-4xl font-bold text-center',
                   'sm:text-5xl'
                 )}
               >
-                Prompt & model versioning on the cloud
+                {/* Prompt & model versioning on the cloud */}
+                Collaborative prompt & model engineering
               </p>
             </motion.h1>
             <motion.div
@@ -135,14 +109,14 @@ export function Home() {
             >
               <p
                 className={classNames(
-                  'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70 backdrop-blur-md rounded-box text-center',
+                  'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/70 from-20% to-muted-content/90 backdrop-blur-md rounded-box text-center',
                   'text-lg font-semibold p-1',
                   'sm:text-xl sm:font-medium'
                 )}
               >
-                LLM prompt engineering, versioning and evaluation -
-                <span className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-base-content/50 to-base-content">
-                  &nbsp;built for developers.&nbsp;
+                Prompt engineering, versioning and evaluation -
+                <span className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-base-content/60 to-base-content/80">
+                  &nbsp;built for LLM product teams.&nbsp;
                 </span>
               </p>
             </motion.div>
@@ -156,7 +130,7 @@ export function Home() {
               }}
               transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
             >
-              <RequestDemoButton />
+              <GetStartedButton />
             </motion.div>
           </div>
           <div
@@ -218,7 +192,9 @@ export function Home() {
                     'sm:text-xl'
                   )}
                 >
-                  Use better prompts without changing your code.
+                  Meet the CI/CD for prompts
+                  <br />
+                  (automated testing coming soon).
                 </h3>
               </motion.div>
             </div>
@@ -264,7 +240,7 @@ export function Home() {
                     'sm:text-4xl sm:font-bold'
                   )}
                 >
-                  Prompt engineering for developers
+                  Prompt engineering for collaboration
                 </h1>
               </motion.div>
               <motion.div
@@ -391,7 +367,7 @@ export function Home() {
                   )}
                 >
                   Find the most optimal prompt & LLM based on automated
-                  evalutaion.
+                  evaluation.
                 </h3>
               </motion.div>
             </div>
@@ -438,7 +414,7 @@ export function Home() {
                 'sm:text-2xl sm:mb-8'
               )}
             >
-              Join our closed alpha.
+              Join our public beta.
             </h3>
           </motion.div>
           <motion.div
@@ -451,71 +427,10 @@ export function Home() {
             }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
           >
-            <RequestDemoButton />
+            <GetStartedButton />
           </motion.div>
         </div>
       </div>
     </main>
-  )
-}
-
-const SummarizationPromptCode = () => {
-  return (
-    <div
-      style={{ perspective: '1000px' }}
-      className="overflow-visible absolute left-16 bottom-16 -z-10 scale-50 sm:scale-100"
-    >
-      <motion.div
-        className="mockup-code bg-base-200 shadow-base-200 hover:shadow-2xl transition-shadow duration-300"
-        initial={{ opacity: 0.5, rotateX: 40 }}
-        viewport={{ once: true }}
-        whileHover={{ translateY: -10 }}
-        whileInView={{
-          opacity: 1,
-          rotateX: 5,
-          rotateY: 15,
-          rotateZ: -1,
-          transformOrigin: 'center'
-        }}
-        transition={{ duration: 0.7 }}
-      >
-        <SyntaxHighlighter language="python" style={nightOwl} PreTag="div">
-          {SUMMARIZATION_PROMPT}
-        </SyntaxHighlighter>
-      </motion.div>
-    </div>
-  )
-}
-
-const PromptmodelCode = ({ isMobile }) => {
-  return (
-    <div
-      style={{ perspective: '1000px' }}
-      className={classNames(
-        'overflow-visible ',
-        isMobile && 'scale-50',
-        !isMobile && 'absolute right-16 -bottom-4 -z-10 scale-50 sm:scale-100'
-      )}
-    >
-      <motion.div
-        className="mockup-code bg-base-200 shadow-base-200 hover:shadow-2xl transition-shadow duration-300"
-        initial={{ opacity: 0.5, rotateX: 40 }}
-        viewport={{ once: true }}
-        onViewportEnter={() => {}}
-        whileHover={{ translateY: -10 }}
-        whileInView={{
-          opacity: 1,
-          rotateX: isMobile ? 5 : 5,
-          rotateY: isMobile ? 15 : -15,
-          rotateZ: isMobile ? -1 : 3,
-          transformOrigin: 'center'
-        }}
-        transition={{ duration: 0.7 }}
-      >
-        <SyntaxHighlighter language="python" style={nightOwl} PreTag="div">
-          {PROMPTMODEL_CODE}
-        </SyntaxHighlighter>
-      </motion.div>
-    </div>
   )
 }

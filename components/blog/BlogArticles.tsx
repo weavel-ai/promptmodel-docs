@@ -35,6 +35,8 @@ export const BlogArticles = ({ maxItems }: { maxItems?: number }) => {
     return tags
   }, [])
 
+  return <p>No posts yet..</p> // TODO: remove this line after adding some blog posts
+
   return (
     <div className="flex flex-col items-center justify-start gap-y-4">
       <Link

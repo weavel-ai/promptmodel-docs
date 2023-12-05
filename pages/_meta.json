@@ -28,13 +28,19 @@
     "title": "Demo",
     "items": {
       "overview": {
-        "title": "Tutorials (video)",
-        "href": "/docs/tutorials"
+        "title": "Interactive demo",
+        "href": "/docs/demo"
       },
       "schedule-demo": {
         "title": "Schedule Demo",
         "href": "/docs/schedule-demo"
       }
     }
+  },
+  "privacy-policy": {
+    "display": "hidden"
+  },
+  "careers": {
+    "display": "hidden"
   }
 }

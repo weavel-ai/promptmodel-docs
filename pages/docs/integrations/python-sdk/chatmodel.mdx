@@ -1,4 +1,6 @@
-import { Cards, Card } from 'nextra/components'
+---
+description: 'ChatModel provides a simple way to integrate your custom chatbots into your codebase - in just a few lines of code.'
+---
 
 # ChatModel
 
@@ -7,9 +9,6 @@ A **ChatModel** support easiest way to create a chatbot with a single system pro
 It works like OpenAI [Assistant API](https://platform.openai.com/docs/assistants/overview), but more easy to use.
 
 It have its own **Chat Session** (OpenAI called it 'Thread') and you can talk with chatbot in this session infinitely.
-
-
-
 
 We use [LiteLLM](https://github.com/BerriAI/litellm) to integrate LLMs, but currently support only cloud based LLM providers. We will integrate more models, and even allow you to use your own models in the near future.
 
@@ -138,6 +137,7 @@ print(res.content)
 ```
 
 #### stream
+
 if you want to stream response, set `stream=True` in `run()` method.
 
 ```python
@@ -146,13 +146,14 @@ session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
 res = session.run(stream=True)
 for r in res:
 	print(r.content)
-# Hello, 
+# Hello,
 # I'm
 # a
 # assistant.
 ```
 
 #### function call
+
 You can give functions (or tools) to the LLM by `functions` argument.
 
 ```python
@@ -173,6 +174,7 @@ print(res.content)
 ```
 
 #### Asynchronous
+
 If you want to run LLM asynchronously, use `arun()` method.
 
 ```python

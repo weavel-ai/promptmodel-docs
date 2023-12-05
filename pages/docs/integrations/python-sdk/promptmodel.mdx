@@ -1,8 +1,10 @@
-import { Cards, Card } from 'nextra/components'
+---
+description: 'PromptModel integrates your prompts and LLMs, and makes it available as a general function in your code.'
+---
 
 # PromptModel
 
-A **PromptModel** is a combination of prompts and an LLM. Basically it can be used in 3 ways:
+**PromptModel** integrates your prompts and LLMs, and makes it available as a general function in your code. It can be used in 3 ways:
 
 1. Fetch prompts from the cloud in OpenAI messages format
 2. Run the promptmodel locally (using your local API key), and get the result in OpenAI output format
@@ -11,7 +13,6 @@ A **PromptModel** is a combination of prompts and an LLM. Basically it can be us
 We use [LiteLLM](https://github.com/BerriAI/litellm) to integrate LLMs, but currently support only cloud based LLM providers. We will integrate more models, and even allow you to use your own models in the near future.
 
 All of **PromptModel**'s methods except for `get_prompts` return either an `LLMResponse` or `LLMStreamResponse` object.
-
 
 ## Methods
 
