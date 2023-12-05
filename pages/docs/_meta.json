@@ -1,6 +1,6 @@
 {
   "introduction": "Introduction",
-  "tutorials": "Tutorials (video)",
+  "demo": "Interactive demo",
   "schedule-demo": "Schedule Demo",
   "-- Getting Started": {
     "type": "separator",
@@ -12,7 +12,6 @@
     "type": "separator",
     "title": "Features"
   },
-  "web-dashboard": "Web Dashboard",
   "index": {
     "display": "hidden"
   }

@@ -135,7 +135,7 @@ export function Home() {
             >
               <p
                 className={classNames(
-                  'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70 backdrop-blur-md rounded-box text-center',
+                  'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70 backdrop-blur-md rounded-box text-center',
                   'text-lg font-semibold p-1',
                   'sm:text-xl sm:font-medium'
                 )}
@@ -213,7 +213,7 @@ export function Home() {
               >
                 <h3
                   className={classNames(
-                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70',
                     'text-lg font-medium text-start',
                     'sm:text-xl'
                   )}
@@ -279,7 +279,7 @@ export function Home() {
               >
                 <h3
                   className={classNames(
-                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70',
                     'text-lg text-start',
                     'sm:text-xl'
                   )}
@@ -287,7 +287,7 @@ export function Home() {
                   A prompt engineering dashboard that feels like an extension of
                   your IDE.
                 </h3>
-                <div className="flex flex-col gap-y-2 ml-2 mt-4 text-neutral-content text-lg">
+                <div className="flex flex-col gap-y-2 ml-2 mt-4 text-muted-content text-lg">
                   <div className="flex flex-row gap-x-4 items-center">
                     <CheckFat
                       size={24}
@@ -385,7 +385,7 @@ export function Home() {
               >
                 <h3
                   className={classNames(
-                    'text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                    'text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70',
                     'text-lg font-medium text-start',
                     'sm:text-xl'
                   )}
@@ -433,7 +433,7 @@ export function Home() {
           >
             <h3
               className={classNames(
-                'font-medium text-transparent bg-clip-text bg-gradient-to-b from-neutral-content/60 from-20% to-neutral-content/70',
+                'font-medium text-transparent bg-clip-text bg-gradient-to-b from-muted-content/60 from-20% to-muted-content/70',
                 'text-xl mb-4',
                 'sm:text-2xl sm:mb-8'
               )}

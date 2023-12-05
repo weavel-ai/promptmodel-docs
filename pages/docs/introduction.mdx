@@ -2,48 +2,51 @@ import { Cards, Card } from 'nextra/components'
 
 # Introduction
 
-**PromptModel** is a prompt versioning framework that offers the following:
+**Promptmodel** is a collaborative prompt & model engineering framework that offers the following:
 
 - [x] **Versioning** for every prompt that you run so that you never lose track of your experiments.
 - [x] **Web editor** designed for prompt engineering with difference visualization & built-in version tracking.
-- [x] **SDK** (Python) to integrate with your existing codebase and connect the web editor with your code.
-- [x] **Deployment dashboard** for product-level evaluation & prompt management (A/B tests coming soon).
+- [x] **SDK** (Python) to integrate the prompts with your existing codebase.
+- [x] **Dashboard** for product-level evaluation & prompt management (A/B tests coming soon).
 
-We are currently in **closed alpha**. You can try us out [here](https://app.promptmodel.run).  
-You can request a personal demo [here](./schedule-demo.mdx).  
+We are currently in **public beta**. You can request a personal demo [here](./schedule-demo.mdx).  
 Stay updated by following us on [Discord](https://discord.gg/2Y36M36tZf).
 
 ## Getting Started
 
-We recommend following our [Quickstart](./quickstart) guide to get started with Promptmodel.
+We recommend following our [Interactive demo](./demo) to get started with Promptmodel.
 
-## Web dashboard
+## Prompt Engineering & Management
 
-You can engineer your prompts and create new prompt versions in our **development dashboard**.  
-You can view & evaluate production-level logs and manage your published prompt versions in our **deployment dashboard**.
+Engineer prompts with built-in version control and manage published versions without redeploying your code.
 
-### Development Dashboard
+### Codebase connection via ClI & SDK (Optional)
 
-We offer two convenient methods for crafting prompts on our development dashboard.  
-You have the option to begin directly in the web editor, which utilizes our cloud database, or alternatively, you can integrate your codebase with our SDK. This integration allows you to open the web editor via our Command Line Interface (CLI) and synchronizes the web editor with your codebase.
+You can connect your codebase to the dashboard via our CLI & SDK. (`prompt connect`)
 
-| Feature                         |   Without IDE    | With IDE connection |
-| :------------------------------ | :--------------: | :-----------------: |
-| Prompt engineering editor       |        ✅        |         ✅          |
-| Version control                 |        ✅        |         ✅          |
-| Difference visualization        |        ✅        |         ✅          |
-| Metrics logging                 |        ✅        |         ✅          |
-| Input sample support            | ✅ (coming soon) |         ✅          |
-| Function call support           |        ❌        |         ✅          |
-| Realtime code synchronization   |        ❌        |         ✅          |
-| _ChatAgent_ development support |        ❌        |  ✅ (coming soon)   |
-| Storage                         |      Cloud       |        Local        |
-| PromptModel creation            |     From web     |      From code      |
-| Opening the dev dashboard       |     From web     |      From CLI       |
+This allows the following:
 
-### Deployment Dashboard
+- Flexibiliy to define API keys in your codebase (`.env` file) and use them for LLM calls from the dashboard.
+- Availability to execute functions in your code from the dashboard. (for function calls)
+- Codebase synchronization that allows you to simply add a new PromptModel/ChatModel in your code and have it automatically appear in the dashboard.
 
-The deployment dashboard is where you can manage your prompt versions and view production-level logs.
+| Feature                        |   Without IDE    | With IDE connection |
+| :----------------------------- | :--------------: | :-----------------: |
+| Prompt engineering editor      |        ✅        |         ✅          |
+| Version control                |        ✅        |         ✅          |
+| Difference visualization       |        ✅        |         ✅          |
+| Metrics logging                |        ✅        |         ✅          |
+| Input sample support           |        ✅        |         ✅          |
+| Function call support          | ✅ (coming soon) |         ✅          |
+| Realtime code synchronization  |        ❌        |         ✅          |
+| _ChatAgent_ support            |        ❌        |  ✅ (coming soon)   |
+| Storage                        |      Cloud       |        Cloud        |
+| PromptModel/ChatModel creation |     From web     |  From web or code   |
+| Opening the dashboard          |     From web     |  From web or code   |
+
+## Logging & Evaluation
+
+You can also view and evaluate production-level logs on the dashboard.
 We support (or will support) the following features:
 
 - [x] Logging
@@ -53,14 +56,10 @@ We support (or will support) the following features:
 - [ ] Evaluation
 - [ ] Demo chatbot UI for testing (for ChatModel)
 
-<Cards>
-  <Card title="Development Dashboard" href="/docs/web-dashboard/development" />
-  <Card title="Deployment Dashboard" href="/docs/web-dashboard/deployment" />
-</Cards>
-
 ## SDK Components
 
-Promptmodel have 3 main components to build LLM services, and 2 additional components to integrate your codebase with Web Prompt Editor.
+Our SDK allows you to integrate prompts with your existing codebase (CI/CD for prompts).  
+It also allows you to connect your codebase with the dashboard for code synchronization and function call support.
 
 ### LLM Calls & Logging
 

@@ -30,7 +30,7 @@ export function BlogHeader() {
 
   return (
     <>
-      <Background />
+      <Background className="from-base-200" />
       <div className="flex flex-col items-center mt-10 mb-4">
         {metadata.tag && (
           <span className="opacity-80 text-sm py-1 px-2 rounded-full ring-1 ring-gray-300">

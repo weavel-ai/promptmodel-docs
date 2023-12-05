@@ -1,4 +1,4 @@
 {
-  "from_web": "From web dashboard",
-  "from_code": "From your IDE"
+  "from_web": { "title": "From web dashboard", "display": "hidden" },
+  "from_code": { "title": "From your IDE", "display": "hidden" }
 }

@@ -43,7 +43,7 @@ export const BlogArticles = ({ maxItems }: { maxItems?: number }) => {
       >
         <div className="w-full h-fit flex flex-col xl:flex-row gap-8">
           {firstPage.frontMatter?.ogImage ? (
-            <div className="rounded-md relative aspect-[8/5] overflow-hidden xl:w-1/2 transition-all group-hover:rounded-3xl">
+            <div className="rounded-3xl relative aspect-[8/5] overflow-hidden xl:w-1/2 transition-all group-hover:rounded-md">
               <Image
                 src="https://placehold.co/600x400/png"
                 // src={firstPage.frontMatter.ogImage}
@@ -89,7 +89,7 @@ export const BlogArticles = ({ maxItems }: { maxItems?: number }) => {
             href={page.route}
             className="flex flex-col group !no-underline"
           >
-            <div className="rounded-md overflow-hidden relative aspect-video transition-all group-hover:rounded-3xl">
+            <div className="rounded-3xl overflow-hidden relative aspect-video transition-all group-hover:rounded-md">
               <Image
                 src="https://placehold.co/600x400/png"
                 // src={page.frontMatter.ogImage}
