@@ -133,18 +133,6 @@ const config: DocsThemeConfig = {
       </div>
     )
   },
-  banner: {
-    key: 'demo-banner',
-    dismissible: true,
-    text: (
-      <Link href="/docs/demo">
-        <span className="sm:hidden">Check out live demo →</span>
-        <span className="hidden sm:inline">
-          Want to see Langfuse in action? Check out the live demo →
-        </span>
-      </Link>
-    )
-  },
   useNextSeoProps() {
     const { pathname } = useRouter()
     let titleTemplate: string
