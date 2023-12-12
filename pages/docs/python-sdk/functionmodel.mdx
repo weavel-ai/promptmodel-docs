@@ -1,29 +1,31 @@
 ---
-description: 'PromptModel integrates your prompts and LLMs, and makes it available as a general function in your code.'
+description: 'FunctionModel integrates your prompts and LLMs, and makes it available as a general function in your code.'
 ---
 
-# PromptModel
+# FunctionModel
 
-**PromptModel** integrates your prompts and LLMs, and makes it available as a general function in your code. It can be used in 3 ways:
+**FunctionModel** integrates your prompts and LLMs, and makes it available as a general function in your code. It can be used in 3 ways:
 
 1. Fetch prompts from the cloud in OpenAI messages format
-2. Run the promptmodel locally (using your local API key), and get the result in OpenAI output format
-3. Run the promptmodel locally, then obtain the parsed outputs (with automatic type conversion) as a dictionary
+2. Run the FunctionModel locally (using your local API key), and get the result in OpenAI output format
+3. Run the FunctionModel locally, then obtain the parsed outputs (with automatic type conversion) as a dictionary
 
 We use [LiteLLM](https://github.com/BerriAI/litellm) to integrate LLMs, but currently support only cloud based LLM providers. We will integrate more models, and even allow you to use your own models in the near future.
 
-All of **PromptModel**'s methods except for `get_prompts` return either an `LLMResponse` or `LLMStreamResponse` object.
+All of **FunctionModel**'s methods except for `get_prompts` return either an `LLMResponse` or `LLMStreamResponse` object.
 
 ## Methods
 
-- `get_prompts` fetches published prompts from a specific `PromptModel`.
+- `get_config` fetches `FunctionModelConfig` from a specific `FunctionModel`, includes `prompts` and `version_detail`.
 - `run`, `stream` fetches published prompts, runs LLM API call locally, logs data to the cloud, and returns the result.
 - `run_and_parse`, `stream_and_parse` fetches published prompts, runs LLM API call locally, parses the result, logs data, then returns the parsed result.
 - Asynchronous methods like `arun`, `astream`, `arun_and_parse`, `astream_and_parse` are also available.
+- `get_prompts` fetches published prompts from a specific `FunctionModel`. (deprecated)
+
 
 ### Error Handling
 
-All methods of `PromptModel` do not raise error.
+All methods of `FunctionModel` do not raise error.
 
 Instead, `error` and `error_log` attributes will be set if error occurs.
 
@@ -44,13 +46,13 @@ while trial < max_retry:
 print(parsed_outputs)
 ```
 
-If you use `PromptModel`, you can handle error like this.
+If you use `FunctionModel`, you can handle error like this.
 
 ```python
 max_retry = 3
 trial = 0
 while trial < max_retry:
-	res = PromptModel("example").run_and_parse(kwargs)
+	res = FunctionModel("example").run_and_parse(kwargs)
 	if res.error:
 		print(res.error_log)
 		trial += 1
@@ -59,14 +61,16 @@ while trial < max_retry:
 print(res.parsed_outputs)
 ```
 
-### get_prompts
+### get_config
 
-`get_prompts()` is a method for fetching published prompts from a specific `PromptModel`.
+`get_config()` is a method for fetching `FunctionModelConfig` from a specific `FunctionModel`.
 
 ```python
-prompts = PromptModel("say_hello").get_prompts()
-print(prompts)
+config: FunctionModelConfig = FunctionModel("say_hello").get_config()
+print(config.prompts)
 # [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": "Say hello"}]
+print(config.version_detail)
+# {"model" : "gpt-3.5-turbo", "uuid": "version_uuid", "parsing_type" : "colon", "output_keys" : ["response"]}
 ```
 
 ### run
@@ -76,7 +80,7 @@ print(prompts)
 You can use `run()` with inputs as Dictionary.
 
 ```python
-res = PromptModel("extract_keyword").run({"text": "I like apple."})
+res = FunctionModel("extract_keyword").run({"text": "I like apple."})
 print(res.raw_output)
 # apple
 ```
@@ -84,7 +88,7 @@ print(res.raw_output)
 You can also use `arun()` for asynchronous usage.
 
 ```python
-res = await PromptModel("extract_keyword").arun({"text": "I like apple."})
+res = await FunctionModel("extract_keyword").arun({"text": "I like apple."})
 print(res.raw_output)
 # apple
 ```
@@ -95,7 +99,7 @@ print(res.raw_output)
 It is same with OpenAI API call with `stream=True`.
 
 ```python
-res = PromptModel("start_conversation").stream()
+res = FunctionModel("start_conversation").stream()
 for chunk in res:
 	print(chunk.raw_output)
 	# Hi
@@ -109,7 +113,7 @@ for chunk in res:
 You can also use `astream()` for asynchronous call.
 
 ```python
-res = await PromptModel("start_conversation").astream()
+res = await FunctionModel("start_conversation").astream()
 async for chunk in res:
 	print(chunk.raw_output)
 	# Hi
@@ -122,16 +126,16 @@ async for chunk in res:
 
 ### parse
 
-PromptModel can have `parsing_type` and `output_keys` attributes.
+FunctionModel can have `parsing_type` and `output_keys` attributes.
 
-If you set `parsing_type` and `output_keys` when you engineer your `PromptModel`, output keys can be parsed automatically.
+If you set `parsing_type` and `output_keys` when you engineer your `FunctionModel`, output keys can be parsed automatically.
 
-Response of promptmodel will be parsed automatically and saved in `parsed_outputs` attribute as `Dict[str, str]`.
+Response of functionmodel will be parsed automatically and saved in `parsed_outputs` attribute as `Dict[str, str]`.
 
 ### run_and_parse
 
 ```python
-res = PromptModel("get_keyword_and_score").run_and_parse({"text": text})
+res = FunctionModel("get_keyword_and_score").run_and_parse({"text": text})
 print(res.parsed_outputs)
 # {'keyword': 'apple', 'score': 0.9}
 ```
@@ -139,7 +143,7 @@ print(res.parsed_outputs)
 ### stream_and_parse
 
 ```python
-res = PromptModel("get_keyword_and_score").stream_and_parse({"text": text})
+res = FunctionModel("get_keyword_and_score").stream_and_parse({"text": text})
 for chunk in res:
 	print(chunk.parsed_outputs)
 	# {'keyword': 'apple'}
@@ -150,7 +154,7 @@ for chunk in res:
 
 ## Response Format
 
-All of **PromptModel**'s methods except for `get_prompts` return either an `LLMResponse` or `LLMStreamResponse` object.
+All of **FunctionModel**'s methods except for `get_config` return either an `LLMResponse` or `LLMStreamResponse` object.
 
 ### LLMResponse
 
@@ -195,7 +199,7 @@ For example, the code blocks below will return the same output.
 
 ```python
 from openai import OpenAI
-from promptmodel import PromptModel
+from promptmodel import FunctionModel
 client = OpenAI()
 
 openai_response = client.chat.completion.create(
@@ -205,24 +209,24 @@ openai_response = client.chat.completion.create(
 print(openai_response['choices'][0]['messages']['content'])
 # Hello, my name is GPT-3.
 
-promptmodel_response = PromptModel("say_hello").run()
-print(promptmodel_response.api_response['choices'][0]['messages']['content'])
+functionmodel_response = FunctionModel("say_hello").run()
+print(functionmodel_response.api_response['choices'][0]['messages']['content'])
 # Hello, my name is GPT-3.
 ```
 
 You can also use `LLMResponse.raw_output` to get the content from the LLM call's response.
 
 ```python
-promptmodel_response = PromptModel("say_hello").run()
-print(promptmodel_response.raw_output)
+functionmodel_response = FunctionModel("say_hello").run()
+print(functionmodel_response.raw_output)
 # Hello, my name is GPT-3.
 ```
 
 When you use methods such as `run_and_parse`, the parsed results can be found in `LLMResponse.parsed_outputs`.
 
 ```python
-promptmodel_response = PromptModel("say_hello_COT").run_and_parse()
-print(promptmodel_response.parsed_outputs)
+functionmodel_response = FunctionModel("say_hello_COT").run_and_parse()
+print(functionmodel_response.parsed_outputs)
 # {"think" : "I will say Hello", "response" : "Hello"}
 ```
 
@@ -280,7 +284,7 @@ For example, the code blocks below will return the same output.
 
 ```python
 from openai import OpenAI
-from promptmodel import PromptModel
+from promptmodel import FunctionModel
 client = OpenAI()
 
 openai_response = client.chat.completion.create(
@@ -296,8 +300,8 @@ for chunk in openai_response:
 # is
 # GPT-3.
 
-promptmodel_response = PromptModel("say_hello").stream()
-for chunk in promptmodel_response:
+functionmodel_response = FunctionModel("say_hello").stream()
+for chunk in functionmodel_response:
 	print(chunk.api_response['choices'][0]['delta']['content'])
 # Hello,
 # my
@@ -309,8 +313,8 @@ for chunk in promptmodel_response:
 You can also use `LLMStreamResponse.raw_output` to get the content from the LLM call's response.
 
 ```python
-promptmodel_response = PromptModel("say_hello").stream()
-for chunk in promptmodel_response:
+functionmodel_response = FunctionModel("say_hello").stream()
+for chunk in functionmodel_response:
 	print(chunk.raw_output)
 # Hello,
 # my
@@ -323,12 +327,22 @@ Using `stream_and_parse` will return the parsed results in `LLMStreamResponse.pa
 The streamed LLM response will be parsed in real-time, streamed as Dictionary.
 
 ```python
-promptmodel_response = PromptModel("say_hello_COT").stream_and_parse()
-for chunk in promptmodel_response:
+functionmodel_response = FunctionModel("say_hello_COT").stream_and_parse()
+for chunk in functionmodel_response:
 	print(chunk.parsed_outputs)
 	# {"think" : "I"}
 	# {"think" : "will"}
 	# {"think" : "say"}
 	# {"think" : "Hello."}
 	# {"response" : "Hello"}
+```
+
+### get_prompts (deprecated)
+
+`get_prompts()` is a method for fetching published prompts from a specific `FunctionModel`.
+
+```python
+prompts = FunctionModel("say_hello").get_prompts()
+print(prompts)
+# [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": "Say hello"}]
 ```

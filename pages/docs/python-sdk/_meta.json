@@ -1,5 +1,5 @@
 {
-  "promptmodel": "PromptModel",
+  "functionmodel": "FunctionModel",
   "chatmodel": "ChatModel",
   "chatagent": "ChatAgent",
   "devapp": "DevApp",

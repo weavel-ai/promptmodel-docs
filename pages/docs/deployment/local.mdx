@@ -1,0 +1,38 @@
+# Local Machine
+
+We provide `docker-compose.yml` to run the application locally.
+
+You can run the `Promptmodel` Dashboard, Backend and Postgres DB with the following single command:
+
+```bash
+docker-compose up
+```
+
+Requirements: docker and docker compose, both included in Docker Desktop
+
+## Start
+```bash
+# clone the repository
+git clone https://github.com/weavel-ai/promptmodel.git
+cd promptmodel
+
+docker compose up
+```
+
+-> Visit http://localhost:3000
+
+This will build the docker images of frontend Dashboard, backend server, postgres database, redis and redis-listener.
+
+## Upgrade
+
+```bash
+cd promptmodel
+
+git pull
+docker compose down
+docker compose build --no-cache
+docker compose up
+```
+
+## Support
+If you encounter any issue, join us on [Discord](https://discord.gg/cd38QC9M).

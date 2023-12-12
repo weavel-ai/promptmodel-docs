@@ -30,7 +30,7 @@ This allows the following:
 
 - Flexibiliy to define API keys in your codebase (`.env` file) and use them for LLM calls from the dashboard.
 - Availability to execute functions in your code from the dashboard. (for function calls)
-- Codebase synchronization that allows you to simply add a new PromptModel/ChatModel in your code and have it automatically appear in the dashboard.
+- Codebase synchronization that allows you to simply add a new FunctionModel/ChatModel in your code and have it automatically appear in the dashboard.
 
 | Feature                        |   Without IDE    | With IDE connection |
 | :----------------------------- | :--------------: | :-----------------: |
@@ -43,7 +43,7 @@ This allows the following:
 | Realtime code synchronization  |        ❌        |         ✅          |
 | _ChatAgent_ support            |        ❌        |  ✅ (coming soon)   |
 | Storage                        |      Cloud       |        Cloud        |
-| PromptModel/ChatModel creation |     From web     |  From web or code   |
+| FunctionModel/ChatModel creation |     From web     |  From web or code   |
 | Opening the dashboard          |     From web     |  From web or code   |
 
 ## Logging & Evaluation
@@ -65,8 +65,8 @@ It also allows you to connect your codebase with the dashboard for code synchron
 
 ### LLM Calls & Logging
 
-[PromptModel](/docs/integrations/python-sdk/promptmodel)  
-**PromptModel** is for a combination of prompts and an LLM model that works as a semantic function.
+[FunctionModel](/docs/integrations/python-sdk/functionmodel)  
+**FunctionModel** is for a combination of prompts and an LLM model that works as a semantic function.
 
 - [x] Version control
 - [x] Logging
@@ -86,7 +86,7 @@ It also allows you to connect your codebase with the dashboard for code synchron
 
 [DevApp]() and [DevClient]()  
 **DevApp** connects your local codebase with the development dashboard via websockets.  
-**DevClient** registers local _promptmodel_ usage to your DevApp.
+**DevClient** registers local _functionmodel_ usage to your DevApp.
 
 You can use our **CLI** to generate an initial file with DevApp, and create & open a new development environment.
 You can utilize the codebase-synchronized development dashboard to engineer function call usage and register input samples for your prompts.

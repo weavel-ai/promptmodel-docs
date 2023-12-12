@@ -7,7 +7,14 @@
     "title": "Getting Started"
   },
   "quickstart": "Quickstart 🚀",
-  "integrations": "Integrations",
+  "deployment": "Deployment",
+  "-- Integrations": {
+    "type": "separator",
+    "title": "Integrations"
+  },
+  "cli": "CLI",
+  "python-sdk": "Python SDK",
+  "frameworks": "Frameworks",
   "-- Features": {
     "type": "separator",
     "title": "Features"

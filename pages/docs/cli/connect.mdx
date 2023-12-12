@@ -10,20 +10,20 @@ prompt connect
 
 > Connects your codebase to the dashboard.
 
-All PromptModel **Run** and ChatModel chat generations will now be sent to the connected ClI and requested from the connected environment.
+All FunctionModel **Run** and ChatModel chat generations will now be sent to the connected ClI and requested from the connected environment.
 
 These requests will use the API keys set in your local device, either defined in the `.env` file or set manually.
 
 While connected, adding Promptmodel instances in your codebase will automatically add it to the dashboard.
 
 ```python {6-9} filename="your_fle.py"
-from promptmodel import PromptModel, DevClient
+from promptmodel import FunctionModel, DevClient
 
 client = DevClient()
 
-# Adding the block below will display PromptModel "summarize" in the dashboard
+# Adding the block below will display FunctionModel "summarize" in the dashboard
 @client.register
 def summarize(text: str):
-    outputs = PromptModel("summarize").run(inputs={"text": text})
+    outputs = FunctionModel("summarize").run(inputs={"text": text})
     return outputs.raw_output
 ```
