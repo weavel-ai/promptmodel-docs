@@ -15,16 +15,16 @@ First sign up, create an organization, then create your first project.
 
 ## Prompt Engineering
 
-In this tutorial, we will walk you through the basic usage of our service with `PromptModel`.
+In this tutorial, we will walk you through the basic usage of our service with `FunctionModel`.
 
 > If you are interested in `ChatModel` (for chatbot), check out our [video demo](/docs/tutorials#chatmodel-engineering-from-web).
 > {/* please check [ChatModel Editor](/docs/webpage/development_dashboard/chatmodel) */}
 
-### Create your first PromptModel
+### Create your first FunctionModel
 
-Create your first PromptModel with an appropriate name.
+Create your first FunctionModel with an appropriate name.
 
-{/* ![Make First PromptModel in Node Code](/demos/make_promptmodel_no_code.gif) */}
+{/* ![Make First FunctionModel in Node Code](/demos/make_promptmodel_no_code.gif) */}
 
 ### Crafting your first prompt
 
@@ -59,7 +59,7 @@ More output formats will be supported very soon. Synatx highlighting for prompts
 
 ### Prompt engineering workflow
 
-You can create new versions of your promptmodels by clicking the **Create Variant** button in the dashboard.
+You can create new versions of your functionmodels by clicking the **Create Variant** button in the dashboard.
 
 ![Creating variant demo](../img/promptmodel-demo-variant.gif)
 
@@ -75,7 +75,7 @@ You can view and manage your deployed prompt versions in the deployment dashboar
 
 ![Deployment dashboard - versions](../img/promptmodel-deployment-versions.png)
 
-LLM token usage, latency, costs will be tracked for each promptmodel run. You can view these metrics in the deployment dashboard. _(coming soon)_
+LLM token usage, latency, costs will be tracked for each functionmodel run. You can view these metrics in the deployment dashboard. _(coming soon)_
 
 <Callout type="info" emoji="✨">
   Metric visualization & analytics based on human & LLM evaluation is also
@@ -123,11 +123,11 @@ You just call `init()` and write down the name of your prompts.
 
 ```python filename="your_code.py"
 import promptmodel
-from promptmodel import PromptModel
+from promptmodel import FunctionModel
 
 promptmodel.init()
 
-res = PromptModel("say_hi").run(
+res = FunctionModel("say_hi").run(
 	inputs={},
 	function_list={}
 )

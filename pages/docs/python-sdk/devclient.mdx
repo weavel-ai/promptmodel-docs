@@ -16,7 +16,7 @@ A decorator to register Promptmodel usage inside a function.
 @client.register
 def my_function():
     ...
-    outputs = PromptModel("my_prompt").run_and_parse(inputs=INPUTS)
+    outputs = FunctionModel("my_prompt").run_and_parse(inputs=INPUTS)
 	response_message = ChatModel("my_chat").run()
     # my_prompt and my_chat will be displayed in the development dashboard
     ...

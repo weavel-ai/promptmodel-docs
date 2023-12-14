@@ -37,6 +37,9 @@ const config: DocsThemeConfig = {
       </>
     )
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   chat: {
     link: 'https://discord.gg/2Y36M36tZf'
   },

@@ -14,15 +14,16 @@ We use [LiteLLM](https://github.com/BerriAI/litellm) to integrate LLMs, but curr
 
 > For Korean users, we integrate [Hyper Clova X](https://clova.ai/hyperclova) into LiteLLM and our service.
 
-**ChatModel**'s methods `run` and `arun` return either an `LLMResponse` or `LLMStreamResponse` object same as [**PromptModel**](/docs/integrations/python-sdk/promptmodel).
+**ChatModel**'s methods `run` and `arun` return either an `LLMResponse` or `LLMStreamResponse` object same as [**FunctionModel**](/docs/python-sdk/functionmodel).
 
 ## Methods
 
-- `get_prompts` fetches published prompts from a specific `ChatModel` by name.
-- `get_messages` fetches chat logs from sessions by session_uuid.
+- `get_config` fetches the `ChatModelConfig` from a specific `ChatModel` by name, includes `system_prompt`, `version_detail` and `message_logs`.
 - `add_messages` add messages to the session on the cloud by session uuid.
 - `run` triggers LLM to respond to messages in the session.
 - `arun` triggers LLM to respond to messages in the session asynchronously.
+- `get_prompts` fetches published prompts from a specific `ChatModel` by name. (deprecated)
+- `get_messages` fetches chat logs from sessions by session_uuid. (deprecated)
 
 ### Error Handling
 
@@ -83,31 +84,20 @@ while trial < max_retry:
 print(res.content)
 ```
 
-### get_prompts
+### get_config
 
-`get_prompts()` is a method for fetching published prompts from a specific `ChatModel`.
-
-It will return a system prompt as a list of dict.
+`get_config()` is a method for fetching `ChatModelConfig` from a specific `ChatModel`.
 
 ```python
-prompts = ChatModel("simple_assistant").get_prompts()
-print(prompts)
-# [{"role": "system", "content": "You are a helpful assistant."}]
+config: ChatModelConfig = ChatModel("say_hello_bot").get_config()
+print(config.system_prompt)
+# "You are a helpful assistant."
+print(config.version_detail)
+# {"model" : "gpt-3.5-turbo", "uuid": "version_uuid"}
+print(config.message_logs)
+# [{"role": "user", "content": "Hello."}, {"role": "assistant", "content": "Hello! What can I help you with?"}]
 ```
 
-### get_messages
-
-`get_messages()` is a method for fetching chat logs from sessions by session_uuid.
-
-```python
-chat_logs = ChatModel("simple_assistant", session_uuid).get_messages()
-print(chat_logs)
-# [
-#	{"role": "system", "content": "You are a helpful assistant."},
-#   {"role": "user", "content": "Hello, I'm a user."},
-#   {"role": "assistnat", "content": "Hello, I'm a assistant."}
-# ]
-```
 
 ### add_messages
 
@@ -183,4 +173,30 @@ session.add_messages([{"role": "user", "content": "Hello, I'm a user."}])
 res = await session.arun()
 print(res.content)
 # Hello, I'm a assistant.
+```
+
+### get_prompts (deprecated)
+
+`get_prompts()` is a method for fetching published prompts from a specific `ChatModel`.
+
+It will return a system prompt as a list of dict.
+
+```python
+prompts = ChatModel("simple_assistant").get_prompts()
+print(prompts)
+# [{"role": "system", "content": "You are a helpful assistant."}]
+```
+
+### get_messages (deprecated)
+
+`get_messages()` is a method for fetching chat logs from sessions by session_uuid.
+
+```python
+chat_logs = ChatModel("simple_assistant", session_uuid).get_messages()
+print(chat_logs)
+# [
+#	{"role": "system", "content": "You are a helpful assistant."},
+#   {"role": "user", "content": "Hello, I'm a user."},
+#   {"role": "assistnat", "content": "Hello, I'm a assistant."}
+# ]
 ```

@@ -100,28 +100,28 @@ Now our web editor is connected your code and synchronized in real-time.
 
 {/* ![Code Integration](/demos/code_integration.gif) */}
 
-If you use `PromptModel`, `ChatModel` or `ChatAgent` in your code, you should add a `DevClient` object in that file so that they will be automatically detected and displayed in the dashboard.
+If you use `FunctionModel`, `ChatModel` or `ChatAgent` in your code, you should add a `DevClient` object in that file so that they will be automatically detected and displayed in the dashboard.
 
 If they are used inside a function, you must wrap the function with `@client.register` decorator.
 
 ```python filename="your_code.py"
-from promptmodel import DevClient, PromptModel
+from promptmodel import DevClient, FunctionModel
 
 client = DevClient()
 
 # You can simply fetch published prompts from the cloud
-extract_keyword_prompts = PromptModel("extract_keyword").get_prompts()
+extract_keyword_prompts = FunctionModel("extract_keyword").get_prompts()
 
-# Or run PromptModel directly
+# Or run FunctionModel directly
 @client.register
 def test():
-    response = PromptModel("choose_service").run_and_parse({})
+    response = FunctionModel("choose_service").run_and_parse({})
     print(response.parsed_outputs)
     # Example ouptut : {"service_name" : "make_account", "arguments" : "[name, email, password]"}
 ```
 
-The development dashboard will automatically detect your code changes and show `PromptModel` instances in the dashboard.  
-Now you can easily add PromptModels in your IDE, and write prompts for them on our web editor without any additional work.
+The development dashboard will automatically detect your code changes and show `FunctionModel` instances in the dashboard.  
+Now you can easily add FunctionModels in your IDE, and write prompts for them on our web editor without any additional work.
 
 > While working on the codebase-connected development dashboard, we save your prompts in your local sqlite3 database.  
 > You can deploy your best prompts onto the cloud at a later step.  
@@ -131,7 +131,7 @@ Now you can easily add PromptModels in your IDE, and write prompts for them on o
 
 ## Prompt Engineering
 
-In this tutorial, we will walk you through the basic usage of our service with `PromptModel`.
+In this tutorial, we will walk you through the basic usage of our service with `FunctionModel`.
 
 > If you are interested in `ChatModel` (for chatbot) or `ChatAgent` (for custom agent),  
 > please check [Chatmodel Editor](/docs/webpage/development_dashboard/chatmodel) or [ChatAgent Editor](/docs/webpage/development_dashboard/chatagent) page.
@@ -221,7 +221,7 @@ When LLM call functions, function call and LLM rerun will be automatically proce
 
 ### Prompt engineering workflow
 
-You can create new versions of your promptmodels by clicking the **Create Variant** button in the dashboard.
+You can create new versions of your functionmodels by clicking the **Create Variant** button in the dashboard.
 
 ![Creating variant demo](../img/promptmodel-demo-variant.gif)
 
@@ -237,7 +237,7 @@ You can view and manage your deployed prompt versions in the deployment dashboar
 
 ![Deployment dashboard - versions](../img/promptmodel-deployment-versions.png)
 
-LLM token usage, latency, costs will be tracked for each promptmodel run. You can view these metrics in the deployment dashboard. _(coming soon)_
+LLM token usage, latency, costs will be tracked for each functionmodel run. You can view these metrics in the deployment dashboard. _(coming soon)_
 
 <Callout type="info" emoji="✨">
   Metric visualization & analytics based on human & LLM evaluation is also
