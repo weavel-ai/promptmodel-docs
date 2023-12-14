@@ -1,53 +1,57 @@
 # Self-Hosting
 
 Promptmodel is open source, so you can host it yourself.
-You can run the `Promptmodel` Dashboard, Backend and Postgres DB with the following single command:
+You can host all services that compose **Promptmodel** with a single command:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
-Requirements: docker and docker compose, both included in Docker Desktop
+> Requirements: docker and docker compose, both included in Docker Desktop
 
 ## Start
-For deploying the container, you need to configure the following environment variables in the `.env` file:
 
-Environment variables:
+Before deploying, you need to configure the following environment variables in the `.env` file:
 
 ```bash
 # .env
-POSTGRES_HOST=yourdbname
-POSTGRES_USER=youruser
-POSTGRES_PASSWORD=yourpassword
-POSTGRES_DB=db
-POSTGRES_PORT=5432	# 5432 recommended
-NEXTAUTH_SECRET=yoursecret
+NEXTAUTH_SECRET=yoursecret # Required
+
+POSTGRES_HOST=yourhostname  # Optional, postgres by default
+POSTGRES_USER=yourusername  # Optional, postgres by default
+POSTGRES_PASSWORD=yourpassword  # Optional, postgres by default
+POSTGRES_DB=dbname # Optional, postgres by default
+POSTGRES_PORT=5432	# Optional, 5432 by default
+REDIS_HOST=yourhostname  # Optional, redis by default
 ```
 
 - Postgres variables
-    - `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_HOST` are the credentials for the postgres database. 
-    - `POSTGRES_PORT` is the port on which the postgres database is running. We recommend using the default port `5432`.
+
+  - `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_HOST` are the credentials for the postgres database.
+  - `POSTGRES_PORT` is the port on which the postgres database is running. We recommend using the default port `5432`.
 
 - Authentication secret key
-    - `NEXTAUTH_SECRET` is a secret for the authentication. We use [next-auth](https://next-auth.js.org/) for authentication.
+  - `NEXTAUTH_SECRET` is a secret for the authentication. We use [next-auth](https://next-auth.js.org/) for authentication.
 
-Optional environment variables:
+{/* Optional environment variables: */}
 
-```bash
-# .env
-NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_ID=your_google_id
-NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET=your_google_secret
-NEXT_PUBLIC_AUTH_GITHUB_CLIENT_ID=your_github_id
-NEXT_PUBLIC_AUTH_GITHUB_CLIENT_SECRET=your_github_secret
-```
+{/* ```bash */}
 
-- Google Authentication
-	- `NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_ID` and `NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET` are the credentials for the google authentication.
-- Github Authentication
-	- `NEXT_PUBLIC_AUTH_GITHUB_CLIENT_ID` and `NEXT_PUBLIC_AUTH_GITHUB_CLIENT_SECRET` are the credentials for the github authentication.
+{/* # .env */}
 
+{/* NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_ID=your_google_id */}
+{/* NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET=your_google_secret */}
+{/* NEXT_PUBLIC_AUTH_GITHUB_CLIENT_ID=your_github_id */}
+{/* NEXT_PUBLIC_AUTH_GITHUB_CLIENT_SECRET=your_github_secret */}
+{/*  */}
+{/* ```` */}
+{/*  */}
+{/* - Google Authentication */}
+{/* - `NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_ID` and `NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET` are the credentials for the google authentication. */}
+{/* - Github Authentication */}
+{/* - `NEXT_PUBLIC_AUTH_GITHUB_CLIENT_ID` and `NEXT_PUBLIC_AUTH_GITHUB_CLIENT_SECRET` are the credentials for the github authentication. */}
 
-After you have configured the environment variables, you can start the container with the following command, as same as in local-hosting:
+After you have configured the environment variables, you can start the container with the following command:
 
 ```bash
 docker compose up
@@ -55,7 +59,7 @@ docker compose up
 
 -> Visit http://localhost:3000
 
-This will build the docker images of frontend Dashboard, backend server, postgres database, redis and redis-listener.
+> This will build the docker images of a Next.js frontend, FastAPI backend server, postgres database, redis and postgres-redis listener for realtime.
 
 ## Upgrade
 
@@ -67,3 +71,7 @@ docker compose down
 docker compose build --no-cache
 docker compose up
 ```
+
+## Support
+
+If you encounter any issues, you can ask for help on [Discord](https://discord.gg/2Y36M36tZf).

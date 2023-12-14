@@ -1,16 +1,17 @@
 # Local Machine
 
-We provide `docker-compose.yml` to run the application locally.
+We provide `docker-compose.yml` for running the application locally.
 
-You can run the `Promptmodel` Dashboard, Backend and Postgres DB with the following single command:
+You can serve all services that compose **Promptmodel** with a single command:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
-Requirements: docker and docker compose, both included in Docker Desktop
+> Requirements: docker and docker compose, both included in Docker Desktop
 
-## Start
+## Get started
+
 ```bash
 # clone the repository
 git clone https://github.com/weavel-ai/promptmodel.git
@@ -21,9 +22,9 @@ docker compose up
 
 -> Visit http://localhost:3000
 
-This will build the docker images of frontend Dashboard, backend server, postgres database, redis and redis-listener.
+> This will build the docker images of a Next.js frontend, FastAPI backend server, postgres database, redis and postgres-redis listener for realtime.
 
-## Upgrade
+## Update to latest version
 
 ```bash
 cd promptmodel
@@ -34,5 +35,17 @@ docker compose build --no-cache
 docker compose up
 ```
 
-## Support
-If you encounter any issue, join us on [Discord](https://discord.gg/cd38QC9M).
+Promptmodel Cloud is a managed version of Promptmodel, with automatic updates and more features.  
+You can get started with a free plan [here](https://app.promptmodel.run).
+
+## Local development
+
+```bash
+docker compose -f docker-compose.dev.yml watch
+```
+
+For development, we provide `docker-compose.dev.yml` which allows `docker compose watch` - changes in the codebase will be detected and related containers will automatically sync/rebuild.
+
+> This feature was introduced in Docker Compose 2.2.2. [Read more →](https://docs.docker.com/compose/file-watch/)
+
+`docker compose watch` isn't supported on remote code
