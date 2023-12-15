@@ -1,15 +1,27 @@
 # Self-Hosting
 
 Promptmodel is open source, so you can host it yourself.
-You can host all services that compose **Promptmodel** with a single command:
+You can host it by yourself with docker compose or by Railway Template.
 
-```bash
-docker compose up
-```
+## Railway Template
+
+You can deploy the `Promptmodel` by Railway Template.
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/4YWX38)
+
+You should update 2 environment variables after deploying.
+
+- frontend
+    - `NEXT_PUBLIC_ENDPOINT_URL` is the url of the backend server. It should be updated to backend's public url created by Railway.
+-  backend
+    - `NEXTAUTH_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
+
+
+## Docker
 
 > Requirements: docker and docker compose, both included in Docker Desktop
 
-## Start
+### Start
 
 Before deploying, you need to configure the following environment variables in the `.env` file:
 
@@ -17,21 +29,25 @@ Before deploying, you need to configure the following environment variables in t
 # .env
 NEXTAUTH_SECRET=yoursecret # Required
 
-POSTGRES_HOST=yourhostname  # Optional, postgres by default
 POSTGRES_USER=yourusername  # Optional, postgres by default
 POSTGRES_PASSWORD=yourpassword  # Optional, postgres by default
 POSTGRES_DB=dbname # Optional, postgres by default
 POSTGRES_PORT=5432	# Optional, 5432 by default
-REDIS_HOST=yourhostname  # Optional, redis by default
+NEXT_PUBLIC_ENDPOINT_URL=http://localhost:8000 
+NEXTAUTH_URL=http://localhost:3000
 ```
 
 - Postgres variables
 
-  - `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_HOST` are the credentials for the postgres database.
+  - `POSTGRES_DB`, `POSTGRES_USER` and `POSTGRES_PASSWORD` are the credentials for the postgres database.
   - `POSTGRES_PORT` is the port on which the postgres database is running. We recommend using the default port `5432`.
 
 - Authentication secret key
   - `NEXTAUTH_SECRET` is a secret for the authentication. We use [next-auth](https://next-auth.js.org/) for authentication.
+
+- Endpoint urls
+  - `NEXT_PUBLIC_ENDPOINT_URL` is the url of the backend server. It should be updated to backend's public url.
+  - `NEXTAUTH_URL` is the url of the frontend server. It should be updated to frontend's public url.
 
 {/* Optional environment variables: */}
 
@@ -57,11 +73,11 @@ After you have configured the environment variables, you can start the container
 docker compose up
 ```
 
--> Visit http://localhost:3000
+-> Visit http://localhost:3000 (or frontend public URL)
 
 > This will build the docker images of a Next.js frontend, FastAPI backend server, postgres database, redis and postgres-redis listener for realtime.
 
-## Upgrade
+### Upgrade
 
 ```bash
 cd promptmodel

@@ -1,5 +1,5 @@
 {
   "promptmodel_cloud": "Promptmodel Cloud",
   "local": "Local (docker compose)",
-  "self_hosted": "Self-hosted (docker)"
+  "self_hosted": "Self-hosted"
 }
