@@ -12,11 +12,10 @@ You can deploy the `Promptmodel` by **Railway** **Template**.
 You should update 2 environment variables after deploying.
 
 - frontend
-    - `BACKEND_PUBLIC_URL` is the url of the backend server. It should be updated to backend's public url created by Railway.
-    - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
--  backend
-    - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
-
+  - `BACKEND_PUBLIC_URL` is the url of the backend server. It should be updated to backend's public url created by Railway.
+  - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
+- backend
+  - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
 
 ## Docker
 
@@ -34,7 +33,7 @@ POSTGRES_USER=yourusername  # Optional, postgres by default
 POSTGRES_PASSWORD=yourpassword  # Optional, postgres by default
 POSTGRES_DB=dbname # Optional, postgres by default
 POSTGRES_PORT=5432	# Optional, 5432 by default
-BACKEND_PUBLIC_URL=http://localhost:8000 
+BACKEND_PUBLIC_URL=http://localhost:8000
 FRONTEND_PUBLIC_URL=http://localhost:3000
 ```
 
@@ -44,6 +43,7 @@ FRONTEND_PUBLIC_URL=http://localhost:3000
   - `POSTGRES_PORT` is the port on which the postgres database is running. We recommend using the default port `5432`.
 
 - Authentication secret key
+
   - `NEXTAUTH_SECRET` is a secret for the authentication. We use [next-auth](https://next-auth.js.org/) for authentication.
 
 - Endpoint urls
@@ -91,4 +91,4 @@ docker compose up
 
 ## Support
 
-If you encounter any issues, you can ask for help on [Discord](https://discord.gg/2Y36M36tZf).
+If you encounter any issues, you can ask for help on [Discord](https://www.promptmodel.run/discord).

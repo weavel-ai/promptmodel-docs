@@ -38,10 +38,10 @@ const config: DocsThemeConfig = {
     )
   },
   sidebar: {
-    defaultMenuCollapseLevel: 1,
+    defaultMenuCollapseLevel: 1
   },
   chat: {
-    link: 'https://discord.gg/2Y36M36tZf'
+    link: 'https://www.promptmodel.run/discord'
   },
   head: () => {
     const { asPath, defaultLocale, locale } = useRouter()

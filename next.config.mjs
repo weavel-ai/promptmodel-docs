@@ -6,10 +6,19 @@ const withNextra = nextra({
   defaultShowCopyCode: true
 })
 
-export default withNextra({
+/** @type {import('next').NextConfig} */
+const nextConfig = withNextra({
   // basePath: "/docs",
   images: {
     domains: ['placehold.co']
   },
+  rewrites: async () => [
+    {
+      source: '/discord',
+      destination: 'https://discord.gg/2Y36M36tZf'
+    }
+  ],
   transpilePackages: ['react-syntax-highlighter']
 })
+
+export default nextConfig
