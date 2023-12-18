@@ -1,20 +1,21 @@
 # Self-Hosting
 
 Promptmodel is open source, so you can host it yourself.
-You can host it by yourself with docker compose or by Railway Template.
+You can host it by yourself with Docker compose or by Railway Template.
 
 ## Railway Template
 
-You can deploy the `Promptmodel` by Railway Template.
+You can deploy the `Promptmodel` by **Railway** **Template**.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/4YWX38)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/uzaE0r)
 
 You should update 2 environment variables after deploying.
 
 - frontend
-    - `NEXT_PUBLIC_ENDPOINT_URL` is the url of the backend server. It should be updated to backend's public url created by Railway.
+    - `BACKEND_PUBLIC_URL` is the url of the backend server. It should be updated to backend's public url created by Railway.
+    - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
 -  backend
-    - `NEXTAUTH_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
+    - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url created by Railway.
 
 
 ## Docker
@@ -33,8 +34,8 @@ POSTGRES_USER=yourusername  # Optional, postgres by default
 POSTGRES_PASSWORD=yourpassword  # Optional, postgres by default
 POSTGRES_DB=dbname # Optional, postgres by default
 POSTGRES_PORT=5432	# Optional, 5432 by default
-NEXT_PUBLIC_ENDPOINT_URL=http://localhost:8000 
-NEXTAUTH_URL=http://localhost:3000
+BACKEND_PUBLIC_URL=http://localhost:8000 
+FRONTEND_PUBLIC_URL=http://localhost:3000
 ```
 
 - Postgres variables
@@ -46,8 +47,8 @@ NEXTAUTH_URL=http://localhost:3000
   - `NEXTAUTH_SECRET` is a secret for the authentication. We use [next-auth](https://next-auth.js.org/) for authentication.
 
 - Endpoint urls
-  - `NEXT_PUBLIC_ENDPOINT_URL` is the url of the backend server. It should be updated to backend's public url.
-  - `NEXTAUTH_URL` is the url of the frontend server. It should be updated to frontend's public url.
+  - `BACKEND_PUBLIC_URL` is the url of the backend server. It should be updated to backend's public url.
+  - `FRONTEND_PUBLIC_URL` is the url of the frontend server. It should be updated to frontend's public url.
 
 {/* Optional environment variables: */}
 
