@@ -18,3 +18,30 @@ description: 'Python SDK Documentation for Promptmodel'
 ```bash
 pip install promptmodel
 ```
+
+## API Key Setup
+
+1. Obtain your API key from the Project Settings page of your Promptmodel project.
+
+![Project Settings](public/project_setting.jpg)
+
+2. Add the key to your .env file:
+
+```python
+# .env
+PROMPTMODEL_API_KEY=YoUr_ApI_kEy
+```
+
+## Self-hosting Configuration
+
+For integrating your Self-hosted **Promptmodel** with your codebase, configure the backend and frontend URLs in your `.env` file.
+
+```python
+# .env
+# set this to your self-hosted Promptmodel backend URL
+PROMPTMODEL_BACKEND_PUBLIC_URL=http://localhost:8000
+# set this to your self-hosted Promptmodel frontend URL
+PROMPTMODEL_FRONTEND_PUBLIC_URL=http://localhost:3000 
+```
+
+This setup links Promptmodel python SDK in your codebase with your self-hosted **Promptmodel**.
