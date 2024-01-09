@@ -15,7 +15,7 @@ const nextConfig = withNextra({
   rewrites: async () => [
     {
       source: '/discord',
-      destination: 'https://discord.gg/2Y36M36tZf'
+      destination: 'https://promptmodel.run/discord'
     }
   ],
   transpilePackages: ['react-syntax-highlighter']
