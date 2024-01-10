@@ -1,7 +1,7 @@
 {
   "functionmodel": "FunctionModel",
   "chatmodel": "ChatModel",
-  "chatagent": "ChatAgent",
+  "unitlogger": "UnitLogger",
   "devapp": "DevApp",
   "devclient": "DevClient"
 }

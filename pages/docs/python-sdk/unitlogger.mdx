@@ -1,0 +1,83 @@
+---
+description: 'UnitLogger makes it easy to log your code unit with LLM calls.'
+---
+
+# UnitLogger
+
+**UnitLogger** is a simple logging system that makes it easy to log your code unit with LLM calls.
+
+You can log your traces with multi step of LLM calls easily.
+
+> Currently, it only works works with **FunctionModel** class.  
+> We will integrate this with **ChatModel** class as soon as possible.
+
+## Example Code
+
+```python
+from promptmodel import init, UnitLogger, FunctionModel
+
+init()
+
+async def copilot(user_message):
+    unit = UnitLogger(name="copilot_unit", version=1).log_start() # start the trace
+
+    planner = FunctionModel("planner", unit_config=unit.config) 
+    res = planner.run({"user_message" : user_message}) # 1st LLM call
+    planner.log_score({"accuracy" : 0.9})
+
+    executor = FunctionModel("executor", unit_config=unit.config)
+    res = executor.run({"plan" : res.raw_output, "user_message" : user_message}) # 2nd LLM call
+    executor.log_score({"accuracy" : 0.8})
+
+    unit.log_score({"user_liked" : 1})
+
+    return res.raw_output
+```
+
+This example code show that how to log your code unit with multi-step of LLM calls.
+
+After you log your code unit, you can see the trace in the **Unit Dashboard**.
+
+{/* Image Here */}
+
+You can easily see the trace, latency, and correlation between thee each LLM call's score and the overall trace's score.
+
+{/* Image Here */}
+
+
+## Methods & Attributes
+
+**Methods**
+- `log_start` creates the initial point of the trace logging. It returns a **UnitLogger** object itself.
+- `log_score` can log any score key-value pairs in the trace.
+
+**Attributes**
+- `config` have the configuration data of the `UnitLogger` object. If you want to add any LLM call logs in the trace, just give this value to the `FunctionModel` class.
+
+### log_start
+
+`log_start` method is the initial point of the trace you want to log.
+It will return a **UnitLogger** object itself, filled with the configuration data.
+
+```python
+unit = UnitLogger(name="copilot_unit", version=1).log_start()
+```
+
+You can give the `name` and `version` of the trace you want to log.
+
+After you call this method, you can use the `unit.config` attribute to log any LLM call in the trace.
+
+```python
+planner = FunctionModel("planner", unit_config=unit.config)
+res = planner.run({"user_message" : user_message}) # This LLM call will be logged in the trace automatically.
+```
+
+### log_score
+
+`log_score` method can log any score key-value pairs in the trace.
+As same as `FunctionModel.log_score` method, you can give any key-value pairs to this method.
+
+```python
+unit.log_score({"user_liked" : 1})
+```
+
