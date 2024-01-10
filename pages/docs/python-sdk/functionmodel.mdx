@@ -21,7 +21,8 @@ All of **FunctionModel**'s methods except for `get_prompts` return either an `LL
 - `run_and_parse`, `stream_and_parse` fetches published prompts, runs LLM API call locally, parses the result, logs data, then returns the parsed result.
 - Asynchronous methods like `arun`, `astream`, `arun_and_parse`, `astream_and_parse` are also available.
 - `get_prompts` fetches published prompts from a specific `FunctionModel`. (deprecated)
-
+- `log_score` logs the any score key-value pairs to the RunLog in the cloud, the log data of the FunctionModel calls.
+- `log` logs the LLM call to the cloud. When you used get_config and call LLM with LLM providers' SDK, you can use this method to log the LLM call to the cloud.
 
 ### Error Handling
 
@@ -152,6 +153,44 @@ for chunk in res:
 	# {'score': 9}
 ```
 
+### log_score
+
+`log_score()` is a method for logging score key-value pairs to the LLM call log.
+You can use `log_score()` with inputs as Dictionary of score values.
+
+```python
+extractor = FunctionModel("extract_keywords")
+res = extractor.run({"text": text})
+await extractor.log_score({"user_liked": 1})
+```
+
+Or you can use `log_score()` with `log_uuid` values in `LLMResponse` or `LLMStreamResponse` and score values as Dictionary.
+`log_uuid` is in the `pm_detail` attribute of `LLMResponse` or `LLMStreamResponse`.
+
+```python
+res = FunctionModel("extract_keywords").run({"text": text})
+await FunctionModel("extract_keywords").log_score(res.pm_detail.log_uuid, {"user_liked": 1})
+```
+
+### log
+
+`log()` is a method for logging LLM call.
+If you use `FunctionModel`'s LLM call methods like `run` or `stream`, you don't need to use this method.
+
+However, if you want to use LLM providers' SDK for your preference, you can use `log()` to log the LLM call to the Promptmodel cloud.
+
+You can use this with `OpenAI`'s response object or `LiteLLM`'s response object as input.
+
+```python
+config = FunctionModel("say_hello").get_config()
+
+client = OpenAI()
+
+res = client.chat.completion.create(messages=config.prompts, model=config.model)
+
+await FunctionModel("say_hello").log(res)
+```
+
 ## Response Format
 
 All of **FunctionModel**'s methods except for `get_config` return either an `LLMResponse` or `LLMStreamResponse` object.
@@ -190,6 +229,13 @@ Here is the exact output dictionary and types of `LLMResponse`.
 	'tool_calls' : Optional[ChatCompletionToolCall]
 	'error' : Optional[bool],
 	'error_log' : Optional[str]
+	'pm_detail' : { # pm_detail is the data of the Promptmodel's LLM call log in the cloud.
+		'model': str
+		'name': str
+		'version_uuid': str
+		'version': int
+		'log_uuid': str
+	}
 }
 ```
 
@@ -272,6 +318,13 @@ Here is the exact json output and type of `LLMStreamResponse`.
 	'tool_calls' : Optional[ChoiceDeltaToolCall],
 	'error' : Optional[bool],
 	'error_log' : Optional[str]
+	'pm_detail' : { # pm_detail is the data of the Promptmodel's LLM call log in the cloud.
+		'model': str
+		'name': str
+		'version_uuid': str
+		'version': int
+		'log_uuid': str
+	}
 }
 ```
 
