@@ -42,5 +42,13 @@
   },
   "careers": {
     "display": "hidden"
+  },
+
+  "prompt": {
+    "title": "Promptmodel",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
   }
 }
