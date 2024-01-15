@@ -12,6 +12,7 @@ export const GetStartedButton = ({ small = false }: { small?: boolean }) => {
         'bg-transparent hover:bg-gradient-to-r hover:from-violet-500 hover:to-primary',
         'transition-all hover:shadow-2xl shadow-secondary outline-none',
         'scale-[85%] sm:scale-100',
+        'text-primary font-semibold hover:text-white/20',
         small
           ? 'h-12 w-36 hidden sm:flex'
           : 'h-16 w-56 mt-4 text-xl text-base-content'

@@ -6,9 +6,10 @@ import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import Link from 'next/link'
 import Image from 'next/image'
+import { streamMetaPromptRun } from '@/apis/stream'
+import { Background } from '../Background'
 
 export function Page() {
-  const refs = {}
   const references = {
     example1: ['/ref/example1.png', 'https://www.naver.com'],
     example2: ['/ref/example2.jpg', 'https://www.google.co.kr'],
@@ -17,8 +18,9 @@ export function Page() {
     example5: ['/ref/example5.png', 'https://www.netflix.com']
   }
   const [explanation, setExplanation] = useState('')
-  const [result, setResult] = useState('')
+  const [generatedPrompt, setGeneratedPrompt] = useState('')
   const [isInitial, setIsInitial] = useState(true)
+  const [isStreaming, setIsStreaming] = useState(false)
   const [colorScheme, setColorScheme] = useState(null)
 
   useEffect(() => {
@@ -28,16 +30,34 @@ export function Page() {
     setColorScheme(scheme)
   }, [])
 
+  async function handleMetaPromptRun(explanation) {
+    let generatedPromptCache: string = ''
+    await streamMetaPromptRun({
+      explanation: explanation,
+      onNewData: data => {
+        if (!data.text) {
+          setIsStreaming(false)
+          return
+        }
+        generatedPromptCache += data.text
+        setGeneratedPrompt(generatedPromptCache)
+      }
+    })
+  }
+
   return (
     <main
       data-theme={colorScheme}
       className="bg-transparent mt-20 overflow-y-auto"
     >
+      <Background className="-z-10" />
       <div className="w-full h-full justify-center flex flex-col gap-y-8 px-96">
         <p className="w-full text-center text-4xl font-semibold">
           We design you the best prompt based on your explanation.
         </p>
-        <p className="text-2xl font-semibold text-center">References</p>
+        <p className="text-2xl font-semibold text-center text-white/60">
+          References
+        </p>
         <div className="w-full px-64">
           <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
             <div className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
@@ -95,26 +115,39 @@ export function Page() {
             </p>
             <div className="btn btn-sm bg-input">
               <button
+                disabled={isStreaming}
                 onClick={() => {
                   setIsInitial(false)
+                  handleMetaPromptRun(explanation)
+                  setIsStreaming(true)
                 }}
               >
-                <p className="text-base-content text-base font-semibold">
-                  {isInitial ? 'Generate' : 'Regenerate'}
-                </p>
+                {isStreaming ? (
+                  <p>Loading...</p>
+                ) : (
+                  <p className="text-base-content text-base font-semibold">
+                    {isInitial ? 'Generate' : 'Regenerate'}
+                  </p>
+                )}
               </button>
             </div>
           </div>
           <InputField textarea value={explanation} setValue={setExplanation} />
         </div>
-        {!isInitial && (
-          <div className="w-full h-full flex flex-col gap-y-3 px-48">
-            <p className="text-2xl font-semibold text-base-content">Result</p>
-            <p className="bg-input border-2 border-muted rounded-lg px-4 py-2 font-semibold">
-              {isInitial ? 'Enter your explanation.' : result}
-            </p>
-          </div>
-        )}
+
+        <div className="w-full h-full flex flex-col gap-y-3 px-48">
+          <p className="text-2xl font-semibold text-base-content">Result</p>
+          <p
+            className={classNames(
+              'bg-input border-2 border-muted rounded-lg px-4 py-2 font-semibold',
+              isInitial && 'text-white/70'
+            )}
+          >
+            {isInitial
+              ? "Enter your explanation and click 'Generate' button."
+              : generatedPrompt}
+          </p>
+        </div>
       </div>
     </main>
   )
