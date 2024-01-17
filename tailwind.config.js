@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // darkMode: ['class'],
+  darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -83,87 +83,87 @@ module.exports = {
     }
   },
   daisyui: {
-    base: false,
-    themes: [
-      {
-        light: {
-          'border': 'hsl(var(--border))',
-          'input': 'hsl(var(--input))',
-          'ring': 'hsl(var(--ring))',
-          'background': 'hsl(var(--background))',
-          'base-100': '#f2f2f2',
-          'base-200': '#f4f4f4',
-          'base-300': '#e6e6e6',
-          'base-content': '#121921',
-          'primary': {
-            DEFAULT: 'hsl(var(--primary))',
-            content: 'hsl(var(--primary-content))'
-          },
-          'secondary': '#7f74ff',
-          // 'secondary': 'hsl(var(--secondary))',
-          'secondary-content': 'hsl(var(--secondary-content))',
-          'destructive': {
-            DEFAULT: 'hsl(var(--destructive))',
-            content: 'hsl(var(--destructive-content))'
-          },
-          'muted': {
-            DEFAULT: 'hsl(var(--muted))',
-            content: 'hsl(var(--muted-content))'
-          },
-          'accent': {
-            DEFAULT: 'hsl(var(--accent))',
-            content: 'hsl(var(--accent-content))'
-          },
-          'popover': {
-            DEFAULT: 'hsl(var(--popover))',
-            content: 'hsl(var(--popover-content))'
-          },
-          'card': {
-            DEFAULT: 'hsl(var(--card))',
-            content: 'hsl(var(--card-content))'
-          }
-        }
-      },
-      {
-        dark: {
-          'border': 'hsl(var(--border))',
-          'input': 'hsl(var(--input))',
-          'ring': 'hsl(var(--ring))',
-          'background': 'hsl(var(--background))',
-          'base-100': '#161827',
-          'base-200': '#22243a',
-          'base-300': '#2d314d',
-          'base-content': '#f2f2f2',
-          'primary': {
-            DEFAULT: 'hsl(var(--primary))',
-            content: 'hsl(var(--primary-content))'
-          },
-          'secondary': '#7f74ff',
-          // 'secondary': 'hsl(var(--secondary))',
-          'secondary-content': 'hsl(var(--secondary-content))',
-          'destructive': {
-            DEFAULT: 'hsl(var(--destructive))',
-            content: 'hsl(var(--destructive-content))'
-          },
-          'muted': {
-            DEFAULT: 'hsl(var(--muted))',
-            content: 'hsl(var(--muted-content))'
-          },
-          'accent': {
-            DEFAULT: 'hsl(var(--accent))',
-            content: 'hsl(var(--accent-content))'
-          },
-          'popover': {
-            DEFAULT: 'hsl(var(--popover))',
-            content: 'hsl(var(--popover-content))'
-          },
-          'card': {
-            DEFAULT: 'hsl(var(--card))',
-            content: 'hsl(var(--card-content))'
-          }
-        }
-      }
-    ]
+    // base: false,
+    // themes: [
+    //   {
+    //     light: {
+    //       'border': 'hsl(var(--border))',
+    //       'input': 'hsl(var(--input))',
+    //       'ring': 'hsl(var(--ring))',
+    //       'background': 'hsl(var(--background))',
+    //       'base-100': '#f2f2f2',
+    //       'base-200': '#f4f4f4',
+    //       'base-300': '#e6e6e6',
+    //       'base-content': '#121921',
+    //       'primary': {
+    //         DEFAULT: 'hsl(var(--primary))',
+    //         content: 'hsl(var(--primary-content))'
+    //       },
+    //       'secondary': '#7f74ff',
+    //       // 'secondary': 'hsl(var(--secondary))',
+    //       'secondary-content': 'hsl(var(--secondary-content))',
+    //       'destructive': {
+    //         DEFAULT: 'hsl(var(--destructive))',
+    //         content: 'hsl(var(--destructive-content))'
+    //       },
+    //       'muted': {
+    //         DEFAULT: 'hsl(var(--muted))',
+    //         content: 'hsl(var(--muted-content))'
+    //       },
+    //       'accent': {
+    //         DEFAULT: 'hsl(var(--accent))',
+    //         content: 'hsl(var(--accent-content))'
+    //       },
+    //       'popover': {
+    //         DEFAULT: 'hsl(var(--popover))',
+    //         content: 'hsl(var(--popover-content))'
+    //       },
+    //       'card': {
+    //         DEFAULT: 'hsl(var(--card))',
+    //         content: 'hsl(var(--card-content))'
+    //       }
+    //     }
+    //   },
+    //   {
+    //     dark: {
+    //       'border': 'hsl(var(--border))',
+    //       'input': 'hsl(var(--input))',
+    //       'ring': 'hsl(var(--ring))',
+    //       'background': 'hsl(var(--background))',
+    //       'base-100': '#161827',
+    //       'base-200': '#22243a',
+    //       'base-300': '#2d314d',
+    //       'base-content': '#f2f2f2',
+    //       'primary': {
+    //         DEFAULT: 'hsl(var(--primary))',
+    //         content: 'hsl(var(--primary-content))'
+    //       },
+    //       'secondary': '#7f74ff',
+    //       // 'secondary': 'hsl(var(--secondary))',
+    //       'secondary-content': 'hsl(var(--secondary-content))',
+    //       'destructive': {
+    //         DEFAULT: 'hsl(var(--destructive))',
+    //         content: 'hsl(var(--destructive-content))'
+    //       },
+    //       'muted': {
+    //         DEFAULT: 'hsl(var(--muted))',
+    //         content: 'hsl(var(--muted-content))'
+    //       },
+    //       'accent': {
+    //         DEFAULT: 'hsl(var(--accent))',
+    //         content: 'hsl(var(--accent-content))'
+    //       },
+    //       'popover': {
+    //         DEFAULT: 'hsl(var(--popover))',
+    //         content: 'hsl(var(--popover-content))'
+    //       },
+    //       'card': {
+    //         DEFAULT: 'hsl(var(--card))',
+    //         content: 'hsl(var(--card-content))'
+    //       }
+    //     }
+    //   }
+    // ]
   },
   plugins: [
     require('tailwind-scrollbar-hide'),

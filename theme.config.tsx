@@ -27,9 +27,9 @@ const footerLegalNav = [
 
 const config: DocsThemeConfig = {
   logo: <Logo />,
-  // project: {
-  //   link: "https://github.com/weavel-ai/promptmodel",
-  // },
+  project: {
+    link: 'https://github.com/weavel-ai/promptmodel'
+  },
   navbar: {
     extraContent: (
       <>

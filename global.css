@@ -8,10 +8,10 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --base-100: 0 0% 95%; /* #f2f2f2 */
-    --base-200: 0 0% 96%; /* #f4f4f4 */
-    --base-300: 0 0% 90%; /* #e6e6e6 */
-    --base-content: 212 30% 10%; /* #121921 */
+    --base-100: 0 0% 0%;
+    --base-200: 0 0% 95%;
+    --base-300: 0 0% 90%;
+    --base-content: 212 30% 10%;
 
     --muted: 210 40% 96.1%;
     --muted-content: 215.4 16.3% 46.9%;
@@ -22,13 +22,13 @@
     --popover: 0 0% 100%;
     --popover-content: 222.2 47.4% 11.2%;
 
-    --primary: 259.5 85.8% 52.9%;
+    --primary: 266 100% 50%;
     --primary-content: 210 40% 98%;
 
-    --secondary: 244.8 100% 72.9%; /* #7f74ff */
-    --secondary-content: 222.2 47.4% 11.2%; /* #0f172a */
+    --secondary: 244.8 100% 72.9%;
+    --secondary-content: 222.2 47.4% 11.2%;
 
-    --accent: 210 40% 96.1%; /* #f1f5f9 */
+    --accent: 210 40% 96.1%;
     --accent-content: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -40,17 +40,14 @@
 
   .dark {
     --border: 217.2 32.6% 27.5%;
-    --input: 217.2 32.6% 27.5%;
+    --input: 233 28% 12%;
+    /* --input: 217.2 32.6% 27.5%; */
     --ring: 212.7 26.8% 83.9%;
 
     --base-100: 233 28% 12%;
     --base-200: 233 27% 18%;
     --base-300: 233 26% 24%;
     --base-content: 0 0% 95%;
-    --base-100: 233 28% 12% /* #161827 */;
-    --base-200: 233 27% 18% /* #22243a */;
-    --base-300: 233 26% 24% /* #2d314d */;
-    --base-content: 0 0% 95% /* #f2f2f2 */;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-content: 215 20.2% 65.1%;
@@ -61,7 +58,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-content: 210 40% 98%;
 
-    --primary: 259.5 85.8% 52.9%;
+    --primary: 266 100% 50%;
     --primary-content: 210 40% 98%;
 
     --secondary: 244.8 100% 72.9%;
@@ -86,4 +83,12 @@
   body {
     @apply text-base-content;
   }
+}
+
+.rti--container {
+  --rti-bg: hsla(var(--base-content), 0.1) !important;
+  --rti-border: var(--border) !important;
+  --rti-main: var(--primary) !important;
+  --rti-tag: var(--card) !important;
+  /* --rti-tag-remove: var(--destructive) !important; */
 }
